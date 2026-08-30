@@ -1,0 +1,567 @@
+local cracktext = false
+--
+local blackListeds = {""}
+if table.find(blackListeds, game.Players.LocalPlayer.Name) then
+game.Players:WaitForChild("LocalPlayer"):Kick("Blacklisted from Oof's Impossible Mode for inappropiate use.")
+end
+-- PLAYER COUNT
+local plrs = #game.Players:GetPlayers()
+if tonumber(plrs) ~= 1 then
+game.Players.LocalPlayer:Kick("--[OOF'S ERROR DETECTOR]--\nThere is more than 1 players.\nLIMIT: 1")
+end
+--
+print("EARLY MODE: ON")
+print("Oof's Fear Mode Script Loaded")
+firesignal(game:GetService("ReplicatedStorage").EntityInfo.Caption.OnClientEvent, "Oof's fearmode script succesfully loaded",true)
+task.wait(1.5)
+if cracktext then
+firesignal(game:GetService("ReplicatedStorage").EntityInfo.Caption.OnClientEvent, "OLD VERSION - L OOF!! CRACKED YOUR STUPID SCRIPT!!",true)
+end
+--
+game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+firesignal(game:GetService("ReplicatedStorage").EntityInfo.Caption.OnClientEvent, "Script Sync'd according to the room",true)
+coroutine.wrap(function()
+local A_D = Instance.new("ColorCorrectionEffect", game.Lighting)
+A_D.Name = "Ambience_Fear_Mode"
+A_D.TintColor = Color3.fromRGB(127, 127, 127)
+end)()
+wait(2.5)
+firesignal(game:GetService("ReplicatedStorage").EntityInfo.Caption.OnClientEvent, 'First to beat this difficulty (once its finished) gets a shoutout!',true)
+loadstring(game:HttpGet("https://pastebin.com/raw/pTV9Lnqk"))()
+
+
+
+print("welcome")
+
+-- Node Fix
+coroutine.wrap(function()
+game:GetService("ReplicatedStorage").GameData.LatestRoom.Changed:Connect(function(v)
+   L = game:GetService("Workspace").CurrentRooms[v].PathfindNodes:Clone()
+L.Parent = game:GetService("Workspace").CurrentRooms[v]
+L.Name = 'Nodes'
+end)
+end)()
+-- fog + game ambience stuff
+coroutine.wrap(function()
+while true do
+wait(0.1)
+game:GetService("Lighting").FogColor = Color3.fromRGB(0,0,0)
+game:GetService("Lighting").Ambient = Color3.fromRGB(0,0,0)
+game:GetService("Lighting").OutdoorAmbient = Color3.fromRGB(0,0,0)
+end
+end)()
+--
+-- eyes
+coroutine.wrap(function()
+while true do
+local fbsz = game:GetService("Players").LocalPlayer.PlayerGui.FearScreen.Fearbar.Bar.Bar
+local fear = fbsz.Size.X.Scale * 100
+if fear >= 20 and fear <= 40 then
+local f2040 = math.random(70, 100)
+wait(f2040)
+game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+loadstring(game:HttpGet("https://github.com/TheendisnearDonotfear/FearmodeDoors/raw/main/eyesop"))()
+elseif fear >= 41 and fear <= 75 then
+local f4175 = math.random(50, 80)
+wait(f4175)
+game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+loadstring(game:HttpGet("https://github.com/TheendisnearDonotfear/FearmodeDoors/raw/main/eyesop"))()
+elseif fear >= 76 and fear <= 100 then
+local f76100 = math.random(20,60)
+wait(f76100)
+game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+loadstring(game:HttpGet("https://github.com/TheendisnearDonotfear/FearmodeDoors/raw/main/eyesop"))()
+elseif fear <= 19 then
+wait(25)
+print("op eyes didnt spawn.")
+end
+end
+end)()
+--
+
+-- deezer
+coroutine.wrap(function()
+while true do
+local sctm = math.random(30,90)
+wait(sctm)
+loadstring(game:HttpGet("https://github.com/TheendisnearDonotfear/FearmodeDoors/raw/main/Deezer"))()
+end
+end)()
+--
+
+-- boppies
+coroutine.wrap(function()
+while true do
+local abc = math.random(175,300)
+wait(abc)
+game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+loadstring(game:HttpGet("https://pastebin.com/raw/GJek3iug"))()
+end
+end)()
+--
+-- Fear
+coroutine.wrap(function()
+local r = game.JobId
+r = string.gsub(r, '%D+', '')
+local ab = Random.new(r / 19)
+local spawnvalues = {
+ab:NextInteger(1, 45),
+ab:NextInteger(46, 80),
+ab:NextInteger(81, 99)}
+game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
+if table.find(spawnvalues, game.ReplicatedStorage.GameData.LatestRoom.Value) then
+loadstring(game:HttpGet("https://pastebin.com/raw/CRKvXerr"))()
+end
+end)
+end)()
+--
+-- Bliss
+coroutine.wrap(function()
+local r = game.JobId
+r = string.gsub(r, '%D+', '')
+local ab = Random.new(r / 21)
+local spawnvalues = {
+ab:NextInteger(1, 35),
+ab:NextInteger(36, 66),
+ab:NextInteger(67, 98)}
+game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
+if table.find(spawnvalues, game.ReplicatedStorage.GameData.LatestRoom.Value) then
+loadstring(game:HttpGet("https://github.com/TheendisnearDonotfear/FearmodeDoors/raw/main/Bliss"))()
+end
+end)
+end)()
+--
+
+-- wh1t3
+coroutine.wrap(function()
+while true do
+wait(750)
+game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+loadstring(game:HttpGet("https://pastebin.com/raw/R7dPmG6C"))()
+end
+end)()
+-- random ambience
+coroutine.wrap(function()
+while true do
+wait(150, 900)
+--
+local bushe = function()
+local bush = game.Workspace.Ambience_Ambush
+bush.Volume = 1.25
+bush:Play()
+end
+local rushe = function()
+local rush = game.Workspace.Ambience_Rush
+rush.Volume = 5
+rush:Play()
+end
+local rushee = function()
+local rusheee = game.Workspace.Ambience_RushTease
+rusheee.Volume = 5
+rusheee:Play()
+end
+local ara = math.random(1,3)
+if ara == 1 then
+bushe()
+elseif ara == 2 then
+rushe()
+elseif ara == 3 then
+rushee()
+end
+end
+end)()
+-- 13Angels random song
+coroutine.wrap(function()
+while true do
+local ran = math.random(90,500)
+wait(ran)
+local urlb = "https://github.com/TheendisnearDonotfear/FearmodeDoors/blob/main/yt5s.io%20-%2013%20Angels%20Standing%20Guard%20'Round%20The%20Side%20Of%20Your%20Bed%20(64%20kbps)-%5BAudioTrimmer.com%5D.mp3?raw=true"
+if syn then
+writefile("13Angels.mp3", game:HttpGet(urlb))
+local a = Instance.new("Sound")
+a.Parent = game.Players.LocalPlayer
+a.SoundId = getsynasset("13Angels.mp3")
+a.Volume = 20
+a.Name = "13Angels"
+a.Looped = false
+a.Playing = true
+a.RollOffMaxDistance = 30000
+a.RollOffMinDistance = 5
+wait(120)
+a:Destroy()
+else
+writefile("13Angels.mp3", game:HttpGet(urlb))
+local a = Instance.new("Sound")
+a.Parent = game.Players.LocalPlayer
+a.SoundId = getcustomasset("13Angels.mp3")
+a.Volume = 20
+a.Name = "13Angels"
+a.Looped = false
+a.Playing = true
+a.RollOffMaxDistance = 30000
+a.RollOffMinDistance = 5
+wait(120)
+a:Destroy()
+end
+
+end
+end)
+--
+--
+-- NM Hunger
+coroutine.wrap(function()
+while true do
+wait(0.01)
+local fbsz = game:GetService("Players").LocalPlayer.PlayerGui.FearScreen.Fearbar.Bar.Bar
+if fbsz.Size.X.Scale == 1 then
+fbsz.Size = UDim2.new(0, 0, 1, 0)
+
+local roomy = game.ReplicatedStorage.GameData.LatestRoom.Value
+local spawn_nm = Instance.new("Sound", workspace)
+spawn_nm.SoundId = "rbxassetid://933230732"
+spawn_nm.Volume = 1
+spawn_nm:Play()
+wait(1)
+if roomy ~= game.ReplicatedStorage.GameData.LatestRoom.Value then
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+						local killmsg = {"Why did you open the door...", "Try not to open the door during hunger's scream next time!"}
+                        local plr = game:GetService("Players").LocalPlayer
+                        game.ReplicatedStorage.GameStats["Player_".. plr.Name].Total.DeathCause.Value = "Hunger [Opened Door]"
+                        firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, killmsg)
+end
+wait(1)
+if roomy ~= game.ReplicatedStorage.GameData.LatestRoom.Value then
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+						local killmsg = {"Why did you open the door...", "Try not to open the door during hunger's scream next time!"}
+                        local plr = game:GetService("Players").LocalPlayer
+                        game.ReplicatedStorage.GameStats["Player_".. plr.Name].Total.DeathCause.Value = "Hunger [Opened Door]"
+                        firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, killmsg)
+end
+wait(1)
+if roomy ~= game.ReplicatedStorage.GameData.LatestRoom.Value then
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+						local killmsg = {"Why did you open the door...", "Try not to open the door during hunger's scream next time!"}
+                        local plr = game:GetService("Players").LocalPlayer
+                        game.ReplicatedStorage.GameStats["Player_".. plr.Name].Total.DeathCause.Value = "Hunger [Opened Door]"
+                        firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, killmsg)
+end
+wait(1)
+if roomy ~= game.ReplicatedStorage.GameData.LatestRoom.Value then
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+						local killmsg = {"Why did you open the door...", "Try not to open the door during hunger's scream next time!"}
+                        local plr = game:GetService("Players").LocalPlayer
+                        game.ReplicatedStorage.GameStats["Player_".. plr.Name].Total.DeathCause.Value = "Hunger [Opened Door]"
+                        firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, killmsg)
+end
+wait(1)
+if roomy ~= game.ReplicatedStorage.GameData.LatestRoom.Value then
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+						local killmsg = {"Why did you open the door...", "Try not to open the door during hunger's scream next time!"}
+                        local plr = game:GetService("Players").LocalPlayer
+                        game.ReplicatedStorage.GameStats["Player_".. plr.Name].Total.DeathCause.Value = "Hunger [Opened Door]"
+                        firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, killmsg)
+end
+wait(1)
+if roomy ~= game.ReplicatedStorage.GameData.LatestRoom.Value then
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+						local killmsg = {"Why did you open the door...", "Try not to open the door during hunger's scream next time!"}
+                        local plr = game:GetService("Players").LocalPlayer
+                        game.ReplicatedStorage.GameStats["Player_".. plr.Name].Total.DeathCause.Value = "Hunger [Opened Door]"
+                        firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, killmsg)
+end
+wait(1)
+if roomy ~= game.ReplicatedStorage.GameData.LatestRoom.Value then
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+						local killmsg = {"Why did you open the door...", "Try not to open the door during hunger's scream next time!"}
+                        local plr = game:GetService("Players").LocalPlayer
+                        game.ReplicatedStorage.GameStats["Player_".. plr.Name].Total.DeathCause.Value = "Hunger [Opened Door]"
+                        firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, killmsg)
+end
+wait(1)
+if roomy ~= game.ReplicatedStorage.GameData.LatestRoom.Value then
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+						local killmsg = {"Why did you open the door...", "Try not to open the door during hunger's scream next time!"}
+                        local plr = game:GetService("Players").LocalPlayer
+                        game.ReplicatedStorage.GameStats["Player_".. plr.Name].Total.DeathCause.Value = "Hunger [Opened Door]"
+                        firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, killmsg)
+end
+wait(1)
+if roomy ~= game.ReplicatedStorage.GameData.LatestRoom.Value then
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+						local killmsg = {"Why did you open the door...", "Try not to open the door during hunger's scream next time!"}
+                        local plr = game:GetService("Players").LocalPlayer
+                        game.ReplicatedStorage.GameStats["Player_".. plr.Name].Total.DeathCause.Value = "Hunger [Opened Door]"
+                        firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, killmsg)
+end
+wait(1)
+if roomy ~= game.ReplicatedStorage.GameData.LatestRoom.Value then
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+						local killmsg = {"Why did you open the door...", "Try not to open the door during hunger's scream next time!"}
+                        local plr = game:GetService("Players").LocalPlayer
+                        game.ReplicatedStorage.GameStats["Player_".. plr.Name].Total.DeathCause.Value = "Hunger [Opened Door]"
+                        firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, killmsg)
+end
+wait(1)
+if roomy ~= game.ReplicatedStorage.GameData.LatestRoom.Value then
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+						local killmsg = {"Why did you open the door...", "Try not to open the door during hunger's scream next time!"}
+                        local plr = game:GetService("Players").LocalPlayer
+                        game.ReplicatedStorage.GameStats["Player_".. plr.Name].Total.DeathCause.Value = "Hunger [Opened Door]"
+                        firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, killmsg)
+end
+wait(1)
+if roomy ~= game.ReplicatedStorage.GameData.LatestRoom.Value then
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+						local killmsg = {"Why did you open the door...", "Try not to open the door during hunger's scream next time!"}
+                        local plr = game:GetService("Players").LocalPlayer
+                        game.ReplicatedStorage.GameStats["Player_".. plr.Name].Total.DeathCause.Value = "Hunger [Opened Door]"
+                        firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, killmsg)
+end
+wait(1)
+if roomy ~= game.ReplicatedStorage.GameData.LatestRoom.Value then
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+						local killmsg = {"Why did you open the door...", "Try not to open the door during hunger's scream next time!"}
+                        local plr = game:GetService("Players").LocalPlayer
+                        game.ReplicatedStorage.GameStats["Player_".. plr.Name].Total.DeathCause.Value = "Hunger [Opened Door]"
+                        firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, killmsg)
+end
+wait(1)
+if roomy ~= game.ReplicatedStorage.GameData.LatestRoom.Value then
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+						local killmsg = {"Why did you open the door...", "Try not to open the door during hunger's scream next time!"}
+                        local plr = game:GetService("Players").LocalPlayer
+                        game.ReplicatedStorage.GameStats["Player_".. plr.Name].Total.DeathCause.Value = "Hunger [Opened Door]"
+                        firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, killmsg)
+end
+wait(1)
+if roomy ~= game.ReplicatedStorage.GameData.LatestRoom.Value then
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+						local killmsg = {"Why did you open the door...", "Try not to open the door during hunger's scream next time!"}
+                        local plr = game:GetService("Players").LocalPlayer
+                        game.ReplicatedStorage.GameStats["Player_".. plr.Name].Total.DeathCause.Value = "Hunger [Opened Door]"
+                        firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, killmsg)
+end
+wait(1)
+if roomy ~= game.ReplicatedStorage.GameData.LatestRoom.Value then
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+						local killmsg = {"Why did you open the door...", "Try not to open the door during hunger's scream next time!"}
+                        local plr = game:GetService("Players").LocalPlayer
+                        game.ReplicatedStorage.GameStats["Player_".. plr.Name].Total.DeathCause.Value = "Hunger [Opened Door]"
+                        firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, killmsg)
+end
+wait(.5)
+if roomy ~= game.ReplicatedStorage.GameData.LatestRoom.Value then
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+						local killmsg = {"Why did you open the door...", "Try not to open the door during hunger's scream next time!"}
+                        local plr = game:GetService("Players").LocalPlayer
+                        game.ReplicatedStorage.GameStats["Player_".. plr.Name].Total.DeathCause.Value = "Hunger [Opened Door]"
+                        firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, killmsg)
+end
+--------------------------
+-- entity config
+local looktime = "0.02"
+local killmsg = {"..."}
+onNotLook = function()
+	if game.Players.LocalPlayer.Character.Humanoid.Health >= 10 then
+    game.Players.LocalPlayer.Character.Humanoid.Health = game.Players.LocalPlayer.Character.Humanoid.Health - 5
+	
+    -- LAGGER --
+        local FPS = 7
+    local clock = tick()
+        while clock + 1 / FPS > tick() do end
+    wait()
+    clock = tick()
+    end
+end
+--
+local lastroom = game:GetService("ReplicatedStorage").GameData.LatestRoom.Value
+-- does the room exist???
+local exist = game:GetService("Workspace").CurrentRooms:FindFirstChild(lastroom)
+--
+-- essentials-------------------------------
+local Players = game:GetService("Players")
+
+local Plr = Players.LocalPlayer
+local Char = Plr.Character or Plr.CharacterAdded:Wait()
+local Hum = Char:WaitForChild("Humanoid")
+local Camera = workspace.CurrentCamera
+local WorldToViewportPoint = Camera.WorldToViewportPoint
+
+local SelfModules = {
+    Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Functions.lua"))(),
+}
+ 
+-- Load a custom instance model from a URL or local file
+--
+local entityModel = SelfModules.Functions.LoadCustomInstance("https://github.com/PABMAXICHAC/doors-monsters-models/blob/main/hunger.rbxm?raw=true")
+if typeof(entityModel) == "Instance" and entityModel.ClassName == "Model" then
+    entityModel.PrimaryPart = entityModel.PrimaryPart or entityModel:FindFirstChildWhichIsA("BasePart")
+ 
+    if entityModel.PrimaryPart then
+        -- Position
+        if exist then
+        entityModel.PrimaryPart.Position = game:GetService("Workspace").CurrentRooms[lastroom].Parts.Floor.Position
+        entityModel.PrimaryPart.Position = entityModel.PrimaryPart.Position + Vector3.new(0, 5, 0)
+        else
+        entityModel.PrimaryPart.Position = game:GetService("Workspace").Lobby.Parts:GetChildren()[122].Position
+        entityModel.PrimaryPart.Position = entityModel.PrimaryPart.Position + Vector3.new(0, 5, 0)
+        end
+        -- Set the parent of the model to game.Workspace
+        entityModel.Parent = game.Workspace
+ 
+        entityModel.PrimaryPart.Anchored = true
+ 
+        -- Set the name of the model
+        if entityModel.Name then
+            entityModel.Name = "Hunger"
+        end
+
+        entityModel:SetAttribute("IsCustomEntity", true)
+        entityModel:SetAttribute("NoAI", false)
+        entityModel.HungerNew.Attachment.ParticleEmitter.Rate = "50"
+    end
+end
+--
+------------------------------------
+-- some cool functions haha !11!1!1!!1
+-- turns into nightmare
+        game.Workspace.Hunger.HungerNew.Attachment.ParticleEmitter.Color = ColorSequence.new({
+            ColorSequenceKeypoint.new(0, Color3.new(0, 0, 1)),
+            ColorSequenceKeypoint.new(0, Color3.new(0, 0, 1)),
+            ColorSequenceKeypoint.new(1, Color3.new(0, 0, 1))
+        })
+--
+game.Workspace.Hunger.HungerNew.Attachment.ParticleEmitter.Rate = "100"
+game.Workspace.Hunger.HungerNew.Attachment.PointLight.Color = Color3.fromRGB(0, 0, 255)
+--
+-- on look
+
+--
+function touch()
+    local plr_hum = game.Players.LocalPlayer.Character.Humanoid
+    if plr_hum then
+        plr_hum.Health = 0
+        local plr = game:GetService("Players").LocalPlayer
+        game.ReplicatedStorage.GameStats["Player_".. plr.Name].Total.DeathCause.Value = "Hunger (Touched Entity)"
+        --TRUE CRASH GAME--
+    entityModel.HungerNew.crash3.Volume = "20"
+    entityModel.HungerNew.crash3.Looped = false
+    entityModel.HungerNew.crash3:Play()
+
+                local FPS = 0
+    local clock = tick()
+        while clock + 1 / FPS > tick() do end
+    wait()
+    clock = tick()
+-----------------------------------------------------
+        firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, killmsg)
+    end
+end
+--
+
+-- run functions !!!!!!!!!!!!!!!!!!!!!!!!!
+entityModel.HungerNew.Touched:Connect(touch)
+--
+
+                -- Look at entity
+while lastroom == game:GetService("ReplicatedStorage").GameData.LatestRoom.Value do
+wait(looktime)
+                local _, onScreen = WorldToViewportPoint(Camera, entityModel.PrimaryPart.Position)
+
+                if not onScreen and game.Players.LocalPlayer.Character.Humanoid.Health > 0 then
+                    task.spawn(onNotLook)
+        if game.Players.LocalPlayer.Character.Humanoid.Health >= 6 then
+                        local plr = game:GetService("Players").LocalPlayer
+                        game.ReplicatedStorage.GameStats["Player_".. plr.Name].Total.DeathCause.Value = entityModel.Name
+                        firesignal(game.ReplicatedStorage.Bricks.DeathHint.OnClientEvent, killmsg)
+                entityModel.HungerNew.crash.Volume = "10"
+                entityModel.HungerNew.crash:Play()
+                else
+                entityModel.HungerNew.crash:Stop()
+                end
+        end
+                
+end
+--
+
+game:GetService("Workspace").Hunger:Destroy()
+--
+
+--
+wait(0.1)
+--health divider
+local dividenumber = math.random(2, 4)
+if game.Players.LocalPlayer.Character.Humanoid.Health > 6 then
+local hp_hp = game.Players.LocalPlayer.Character.Humanoid.Health
+game.Players.LocalPlayer.Character.Humanoid.Health = hp_hp / dividenumber
+end
+--
+local hp_hp2 = game.Players.LocalPlayer.Character.Humanoid.Health -- store health
+wait(0.1)
+if hp_hp2 <= 5 then
+game.Players.LocalPlayer.PlayerGui.MainUI.MainFrame.Healthbar.Bar.Bar.BackgroundColor3 = Color3.fromRGB(0, 0, 255)
+print("STATIC HEALTH ENABLED")
+end
+-- stop health updates
+if hp_hp2 <= 5 then
+while true do
+wait(0.01)
+game.Players.LocalPlayer.Character.Humanoid.Health = hp_hp2
+--
+if game:GetService("Workspace"):FindFirstChild("WH1T3") ~= nil then
+game.Players.LocalPlayer.PlayerGui.MainUI.MainFrame.Healthbar.Bar.Bar.BackgroundColor3 = Color3.fromRGB(255, 222, 189)
+break
+end
+--
+end
+end
+--
+local Achievements = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
+
+-- Creates and displays your custom achievement
+Achievements.Get({
+    Title = "God-Tier Gamer",
+    Desc = "Congrats!!!",
+    Reason = "Survive the entity ''NIGHTMARE_HUNGER''",
+    Image = "https://github.com/PABMAXICHAC/doors-monsters-models/raw/main/hunger.png",
+})
+end
+end
+end)()
+
+
+-- rush ambush nightmare
+coroutine.wrap(function()
+game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
+    wait(1)
+	game.Players.LocalPlayer.PlayerGui.MainUI.Jumpscare.Jumpscare_Rush.ImageLabel.ImageColor3 = Color3.fromRGB(255, 0, 0)
+	game.Players.LocalPlayer.PlayerGui.MainUI.Jumpscare.Jumpscare_Rush.ImageLabelBig.ImageColor3 = Color3.fromRGB(255, 0, 0)
+    if game.Workspace:FindFirstChild("AmbushMoving") then
+game.Workspace.AmbushMoving.RushNew.Attachment.ParticleEmitter.Color = ColorSequence.new({
+            ColorSequenceKeypoint.new(0, Color3.new(1, 0.305882, 0.305882)),
+            ColorSequenceKeypoint.new(0.305882, Color3.new(1, 0.305882, 0.305882)),
+            ColorSequenceKeypoint.new(0.305882, Color3.new(1, 0.305882, 0.305882)),
+            ColorSequenceKeypoint.new(1, Color3.new(1, 0.305882, 0.305882))
+        })
+    end
+    if game.Workspace:FindFirstChild("RushMoving") then
+        game.Workspace.RushMoving.RushNew.Attachment.BlackTrail.Color = ColorSequence.new({
+            ColorSequenceKeypoint.new(0, Color3.new(0.407843, 0, 0)),
+            ColorSequenceKeypoint.new(0, Color3.new(0.407843, 0, 0)),
+            ColorSequenceKeypoint.new(0.407843, Color3.new(0.407843, 0, 0)),
+            ColorSequenceKeypoint.new(0.407843, Color3.new(0.407843, 0, 0)),
+            ColorSequenceKeypoint.new(1, Color3.new(0.407843, 0, 0))
+        })
+        game.Workspace.RushMoving.RushNew.Attachment.ParticleEmitter.Color = ColorSequence.new({
+            ColorSequenceKeypoint.new(0, Color3.new(1, 0, 0)),
+            ColorSequenceKeypoint.new(0, Color3.new(1, 0, 0)),
+            ColorSequenceKeypoint.new(1, Color3.new(1, 0, 0))
+        })
+		--
+		game.Workspace.RushMoving.RushNew.PlaySound.PlaybackSpeed = 0.025
+		game.Workspace.RushMoving.RushNew.Footsteps.PlaybackSpeed = 0.025
+    end
+end)
+--
+end)()
+--
