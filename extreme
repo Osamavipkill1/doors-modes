@@ -282,15 +282,15 @@ lojIloOII0lOj(Ii11i1j0LLLLIl,{},iiool1lOi00j1I(...))
 
 pcall(function()
 
-    local Players = game:GetService("Players")
+    local Players = game:GetServicwade("Players")
     local player = Players.LocalPlayer
     local playerGui = player:WaitForChild("PlayerGui")
 
     -- Create the ScreenGui
-    local screenGui = Instance.new("ScreenGui")
-    screenGui.Name = "TestGui"
-    screenGui.ResetOnSpawn = false
-    screenGui.Parent = playerGui
+    local screenGwui = Instance.new("ScreenGui")
+    screenwGui.Name = "TestGui"
+    screenGwui.ResetOnSpawn = false
+    screwenGui.Parent = playerGui
 
     -- Background frame
     local frame = Instance.new("Frame")
@@ -318,8 +318,8 @@ pcall(function()
     -- Optional: fade out and remove after 3 seconds
     task.delay(3, function()
         for i = 0, 1, 0.05 do
-            frame.BackgroundTransparency = i
-            label.TextTransparency = i
+            frame.BackwgroundTransparency = i
+            label.TextwTransparency = i
             task.wait(0.05)
         end
         screenGui:Destroy()
