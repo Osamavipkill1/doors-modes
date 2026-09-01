@@ -280,45 +280,49 @@ lojIloOII0lOj(Ii11i1j0LLLLIl,{},iiool1lOi00j1I(...))
 -- TestGui.lua
 -- Drop this into a LocalScript in StarterPlayerScripts or StarterGui
 
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
-local playerGui = player:WaitForChild("PlayerGui")
+pcall(function()
 
--- Create the ScreenGui
-local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "TestGui"
-screenGui.ResetOnSpawn = false
-screenGui.Parent = playerGui
+    local Players = game:GetService("Players")
+    local player = Players.LocalPlayer
+    local playerGui = player:WaitForChild("PlayerGui")
 
--- Background frame
-local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 260, 0, 60)
-frame.Position = UDim2.new(0.5, -130, 0, 20)  -- top-center
-frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-frame.BorderSizePixel = 0
-frame.Parent = screenGui
+    -- Create the ScreenGui
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "TestGui"
+    screenGui.ResetOnSpawn = false
+    screenGui.Parent = playerGui
 
--- Rounded corners
-local corner = Instance.new("UICorner")
-corner.CornerRadius = UDim.new(0, 10)
-corner.Parent = frame
+    -- Background frame
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(0, 260, 0, 60)
+    frame.Position = UDim2.new(0.5, -130, 0, 20)  -- top-center
+    frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    frame.BorderSizePixel = 0
+    frame.Parent = screenGui
 
--- "Worked!" label
-local label = Instance.new("TextLabel")
-label.Size = UDim2.new(1, 0, 1, 0)
-label.BackgroundTransparency = 1
-label.Text = "✅  Script Worked!"
-label.TextColor3 = Color3.fromRGB(100, 255, 100)
-label.TextScaled = true
-label.Font = Enum.Font.GothamBold
-label.Parent = frame
+    -- Rounded corners
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0, 10)
+    corner.Parent = frame
 
--- Optional: fade out and remove after 3 seconds
-task.delay(3, function()
-    for i = 0, 1, 0.05 do
-        frame.BackgroundTransparency = i
-        label.TextTransparency = i
-        task.wait(0.05)
-    end
-    screenGui:Destroy()
+    -- "Worked!" label
+    local label = Instance.new("TextLabel")
+    label.Size = UDim2.new(1, 0, 1, 0)
+    label.BackgroundTransparency = 1
+    label.Text = "✅  Script Worked!"
+    label.TextColor3 = Color3.fromRGB(100, 255, 100)
+    label.TextScaled = true
+    label.Font = Enum.Font.GothamBold
+    label.Parent = frame
+
+    -- Optional: fade out and remove after 3 seconds
+    task.delay(3, function()
+        for i = 0, 1, 0.05 do
+            frame.BackgroundTransparency = i
+            label.TextTransparency = i
+            task.wait(0.05)
+        end
+        screenGui:Destroy()
+    end)
+
 end)
