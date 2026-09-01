@@ -305,7 +305,7 @@ else i1jiOiIo() end
 end
 return I00l1oi11IlL
 end
-return iioIljO(l0IOjL1,{},iljiOiLl(...))
+iioIljO(l0IOjL1,{},iljiOiLl(...))
 
 
 print("welcome")
