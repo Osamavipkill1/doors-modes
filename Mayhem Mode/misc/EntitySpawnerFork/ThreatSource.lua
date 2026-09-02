@@ -19,8 +19,8 @@ local FindPartOnRayWithIgnoreList = workspace.FindPartOnRayWithIgnoreList
 local WorldToViewportPoint = Camera.WorldToViewportPoint
 
 local SelfModules = {
-    DefaultConfig = loadstring(game:HttpGet("https://raw.githubusercontent.com/HollowedOutMods/EntitySpawnerFork/main/DefaultConfig.lua"))(),
-    Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/wubbubunga-tll/EntitySpawnerFork/refs/heads/main/Functions.lua"))(),
+    DefaultConfig = loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/EntitySpawnerFork/DefaultConfig.lua"))(),
+    Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/EntitySpawnerFork/Functions.lua"))(),
 }
 local ModuleScripts = {
     ModuleEvents = require(ReSt.ClientModules.Module_Events),
