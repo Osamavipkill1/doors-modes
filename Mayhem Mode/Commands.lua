@@ -8,31 +8,31 @@ function threat()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Entities/Threat.lua"))()
 end
 function mrush()
-    loadstring(game:HttpGet("https://pastebin.com/raw/RERLFw3q"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/pastebin1"))()
 end
 function mbush()
-    loadstring(game:HttpGet("https://pastebin.com/raw/0z32p58s"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/pastebin2"))()
 end
 function meyes()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/wubbubunga-tll/MayhemMode/main/ObfuscatedEntities/Manic%20Eyes-obfuscated.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Entities/Manic%20Eyes.lua"))()
 end
 function twister()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/wubbubunga-tll/MayhemMode/main/ObfuscatedEntities/Twister-obfuscated.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Entities/Twister.lua"))()
 end
 function fog()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/wubbubunga-tll/MayhemMode/main/ObfuscatedEntities/Fog-obfuscated.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Entities/Fog.lua"))()
 end
 function screech()
     loadstring(game:HttpGet("https://gist.githubusercontent.com/wubbubunga-tll/4577981974e05867fdb9e646a552aeba/raw/bb77666b1e693d24ac741af90068d38f1032a886/psstman.lua"))()
 end
 function stalker()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/wubbubunga-tll/MayhemMode/main/ObfuscatedEntities/Stalker-obfuscated.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Entities/Stalker.lua"))()
 end
 function obsession()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/wubbubunga-tll/MayhemMode/main/ObfuscatedEntities/Obsession-obfuscated.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Entities/Obsession.lua"))()
 end
 function sus()
-    local Spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/wubbubunga-tll/EntitySpawnerFork/main/Source.lua"))()
+    local Spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/EntitySpawnerFork/Source.lua"))()
 
 
 -- Create entity
