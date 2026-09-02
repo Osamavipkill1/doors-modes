@@ -19,7 +19,7 @@ local FindPartOnRayWithIgnoreList = workspace.FindPartOnRayWithIgnoreList
 local WorldToViewportPoint = Camera.WorldToViewportPoint
 
 local SelfModules = {
-    DefaultConfig = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors%20Entity%20Spawner/DefaultConfig.lua"))(),
+    DefaultConfig = loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/EntitySpawnerFork/DefaultConfig.lua"))(),
     Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Functions.lua"))(),
 }
 local ModuleScripts = {
