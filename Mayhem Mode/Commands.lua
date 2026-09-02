@@ -2,10 +2,10 @@ function printtest()
     print("message")
 end
 function blackout()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/wubbubunga-tll/MayhemMode/main/ObfuscatedEntities/Blackout-obfuscated.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Entities/Blackout.lua"))()
 end
 function threat()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/wubbubunga-tll/MayhemMode/main/ObfuscatedEntities/Threat-obfuscated.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Entities/Threat.lua"))()
 end
 function mrush()
     loadstring(game:HttpGet("https://pastebin.com/raw/RERLFw3q"))()
