@@ -19,14 +19,33 @@ local ModuleScripts = {}
 -- Misc Functions
 
 local function convertToAsset(str)
-    if isfile(str) then
+    if str:lower():sub(1, 4) == "http" then
+        local fileName = "temp_" .. tick() .. ".txt"
+        local success, result = pcall(function()
+            writefile(fileName, game:HttpGet(str))
+            return Functions.GetAsset(fileName, true)
+        end)
+
+        if isfile(fileName) then
+            delfile(fileName)
+        end
+
+        if success then
+            return result
+        end
+
+        return str
+
+    elseif isfile(str) then
         return Functions.GetAsset(str)
-        
+
     elseif str:find("rbxassetid") or tonumber(str) then
         local numberId = str:gsub("%D", "")
         return "rbxassetid://".. numberId
 
-    return str
+    else
+        return str
+    end
 end
 
 -- Functions
