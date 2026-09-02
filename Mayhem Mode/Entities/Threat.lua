@@ -1,6 +1,6 @@
 -- 12802441490
 _G.Threat = "safe" 
-local Spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/wubbubunga-tll/EntitySpawnerFork/main/ThreatSource.lua"))()
+local Spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/EntitySpawnerFork/ThreatSource.lua"))()
 local r = game.JobId
 r = string.gsub(r, '%D+', '')
 local ab = Random.new(r + 1)
