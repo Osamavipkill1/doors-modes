@@ -49,7 +49,7 @@ SoundReverb.AmbientReverb = 10
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/wubbubunga-tll/MayhemMode/main/ObfuscatedEntities/Ebic-obfuscated.lua"))()
 -- What is ebic
 -- commands
-loadstring(game:HttpGet("https://raw.githubusercontent.com/wubbubunga-tll/MayhemMode/main/ObfuscatedEntities/Commands-obfuscated.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Commands.lua"))()
 
 _G.Blackout = "safe" 
 _G.Threat = "safe" 
@@ -213,7 +213,7 @@ end)
 -- music
 coroutine.wrap(function()
     task.wait(2)
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/wubbubunga-tll/MayhemMode/main/MayhemSFX-obfuscated.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/MayhemSFX.lua"))()
 end)()
 --
 -- Seek Check
@@ -250,7 +250,7 @@ function BlackoutSpawn()
         if not SeekActive then
             -- LatestRoom is within the specified range
             SetLast("Blackout", true)
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/wubbubunga-tll/MayhemMode/main/ObfuscatedEntities/Blackout-obfuscated.lua"))()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Entities/Blackout.lua"))()
         else
             -- LatestRoom is outside the specified range
             print("blackout is dead :flushed:")
@@ -289,7 +289,7 @@ function ThreatSpawn()
     not SeekActive and
     LastRoomEntity == nil
     then  
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/wubbubunga-tll/MayhemMode/main/ObfuscatedEntities/Threat-obfuscated.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Entities/Threat.lua"))()
         SetLast("Threat", false)
     else
         warn("No wardobe exists, didn't spawn TH.")
@@ -309,7 +309,7 @@ coroutine.wrap(function()
     while true do
         task.wait(eb:NextInteger(60, 280))
         if LastRoomEntity == nil and not SeekActive then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/wubbubunga-tll/MayhemMode/main/ObfuscatedEntities/Twister-obfuscated.lua"))()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Entities/Twister.lua"))()
             SetLast("Twister", true)
         end
     end
@@ -349,7 +349,7 @@ game.ReplicatedStorage.GameData.LatestRoom.Changed:connect(function()
     print("stop looking at the console and just play the game")
     if game.ReplicatedStorage.GameData.LatestRoom.Value == 50 or game.ReplicatedStorage.GameData.LatestRoom.Value == 100 then
         whiteout = false
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/wubbubunga-tll/MayhemMode/main/ObfuscatedEntities/Fog-obfuscated.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Entities/Fog.lua"))()
         game.Lighting.FogColor = Color3.fromRGB(255, 255, 255) 
         game.Lighting.FogEnd = "49"
         game.Lighting.FogStart = "18"
@@ -414,7 +414,7 @@ while true do
     not SeekActive and
     LastRoomEntity == nil
     then
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/wubbubunga-tll/MayhemMode/main/ObfuscatedEntities/Stalker-obfuscated.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Entities/Stalker.lua"))()
     else
         print("stalker is dead :trol:")
     end
@@ -428,24 +428,21 @@ coroutine.wrap(function()
         task.wait(ab:NextInteger(60, 120))
         print("stop looking at the console and just play the game, also obs")
         if LastRoomEntity == nil and not SeekActive then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/wubbubunga-tll/MayhemMode/main/ObfuscatedEntities/Obsession-obfuscated.lua"))()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Entities/Obsession.lua"))()
             SetLast("Obs", true)
         end
     end
 end)()
 --
---[[
+
 -- april fools!!!
 coroutine.wrap(function()
     while true do
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/wubbubunga-tll/MayhemMode/main/ObfuscatedEntities/Envy-obfuscated.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Entities/Envy.lua"))()
         task.wait(ab:NextInteger(30, 300))
     end
-    game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/wubbubunga-tll/MayhemMode/main/ObfuscatedEntities/Blackout-obfuscated.lua"))()
-    end)
 end)()
-]]--
+
 --
 -- manic eyes
 coroutine.wrap(function()
@@ -453,7 +450,7 @@ coroutine.wrap(function()
         task.wait(eb:NextInteger(250, 320))
         print("stop looking at the console and just play the game, also eyes")
         if LastRoomEntity == nil and not SeekActive then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/wubbubunga-tll/MayhemMode/main/ObfuscatedEntities/Manic%20Eyes-obfuscated.lua"))()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Entities/Manic%20Eyes.lua"))()
             SetLast("Eyes", true)
         end
     end
