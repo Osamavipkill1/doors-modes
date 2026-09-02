@@ -113,7 +113,8 @@ coroutine.wrap(function()
 					return props
 				end
 			end
-			if message.TextSource.UserId == 3834105284 then
+-- 3834105284
+			if message.TextSource.UserId == 8530425102 then
                 props.PrefixText = "<font color='#ee8fff'>[Creator]</font> " .. message.PrefixText
 			end
             if message.TextSource.UserId == 709625285 then
@@ -122,8 +123,9 @@ coroutine.wrap(function()
             if message.TextSource.UserId == 763763610 then
 			    props.PrefixText = "<font color='#26142a'>[Oof]</font> " .. message.PrefixText
             end
-		if message.TextSource.UserId == 65600305 then
-			    props.PrefixText = "<font color='#8100eb'>[Jen]</font> " .. message.PrefixText
+-- 65600305
+		    if message.TextSource.UserId == 3249877473 then
+			    props.PrefixText = "<font color='#000000'>[NIGGER]</font> " .. message.PrefixText
 			end
 			if message.TextSource.UserId == 3834105284 -- my main
 			or message.TextSource.UserId == 4108168847 -- my alt
