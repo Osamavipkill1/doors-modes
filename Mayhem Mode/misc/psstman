@@ -1,4 +1,4 @@
-Screech = loadstring(game:HttpGet('https://gist.githubusercontent.com/HollowedOutMods/593c18d3ae3345923d9c01809f85c938/raw/1ecdf146e1ba9a1248a109389e53ff3d69711ad5/PSST_NewSource.lua'))()
+Screech = loadstring(game:HttpGet('https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/PSST_NewSource.lua'))()
 -- 12802975019
 
 ExampleScreech = Screech.createEntity{
