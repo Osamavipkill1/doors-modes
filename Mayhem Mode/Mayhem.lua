@@ -56,6 +56,92 @@ _G.Threat = "safe"
 function Msg(Message, Lifetime)
     require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption(Message,true)
 end
+
+-- Stacking entity-death notifications (replaces the old print() spam)
+local NotifTween = game:GetService("TweenService")
+local NotifPlayer = game.Players.LocalPlayer
+local NotifPlayerGui = NotifPlayer:WaitForChild("PlayerGui")
+
+local NotifGui = Instance.new("ScreenGui")
+NotifGui.Name = "MayhemDeathNotifs"
+NotifGui.ResetOnSpawn = false
+NotifGui.IgnoreGuiInset = true
+NotifGui.DisplayOrder = 999
+NotifGui.Parent = NotifPlayerGui
+
+local NotifContainer = Instance.new("Frame")
+NotifContainer.Name = "Container"
+NotifContainer.AnchorPoint = Vector2.new(0, 1)
+NotifContainer.Position = UDim2.new(0, 20, 1, -20)
+NotifContainer.Size = UDim2.new(0, 300, 1, -40)
+NotifContainer.BackgroundTransparency = 1
+NotifContainer.Parent = NotifGui
+
+local NotifLayout = Instance.new("UIListLayout")
+NotifLayout.SortOrder = Enum.SortOrder.LayoutOrder
+NotifLayout.VerticalAlignment = Enum.VerticalAlignment.Bottom
+NotifLayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
+NotifLayout.Padding = UDim.new(0, 8)
+NotifLayout.Parent = NotifContainer
+
+local NotifCount = 0
+
+-- entityName: display name shown in the notification, e.g. "Stalker", "Psst"
+function EntityDiedNotify(entityName)
+    NotifCount = NotifCount + 1
+    local order = NotifCount
+
+    local Notif = Instance.new("Frame")
+    Notif.Name = "Notif"
+    Notif.LayoutOrder = order
+    Notif.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+    Notif.BackgroundTransparency = 1
+    Notif.BorderSizePixel = 0
+    Notif.Size = UDim2.new(1, 0, 0, 40)
+    Notif.ClipsDescendants = true
+    Notif.Parent = NotifContainer
+
+    local Corner = Instance.new("UICorner")
+    Corner.CornerRadius = UDim.new(0, 6)
+    Corner.Parent = Notif
+
+    local Stroke = Instance.new("UIStroke")
+    Stroke.Color = Color3.fromRGB(150, 0, 0)
+    Stroke.Thickness = 1
+    Stroke.Transparency = 1
+    Stroke.Parent = Notif
+
+    local Label = Instance.new("TextLabel")
+    Label.Name = "Label"
+    Label.BackgroundTransparency = 1
+    Label.Size = UDim2.new(1, -16, 1, 0)
+    Label.Position = UDim2.new(0, 8, 0, 0)
+    Label.Font = Enum.Font.GothamBold
+    Label.TextSize = 16
+    Label.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Label.TextXAlignment = Enum.TextXAlignment.Left
+    Label.TextTransparency = 1
+    Label.Text = tostring(entityName) .. " died"
+    Label.Parent = Notif
+
+    local fadeIn = TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+    NotifTween:Create(Notif, fadeIn, {BackgroundTransparency = 0.15}):Play()
+    NotifTween:Create(Stroke, fadeIn, {Transparency = 0}):Play()
+    NotifTween:Create(Label, fadeIn, {TextTransparency = 0}):Play()
+
+    task.delay(4, function()
+        if not Notif or not Notif.Parent then return end
+        local fadeOut = TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
+        local fadeOutTween = NotifTween:Create(Notif, fadeOut, {BackgroundTransparency = 1})
+        NotifTween:Create(Stroke, fadeOut, {Transparency = 1}):Play()
+        NotifTween:Create(Label, fadeOut, {TextTransparency = 1}):Play()
+        fadeOutTween:Play()
+        fadeOutTween.Completed:Wait()
+        if Notif then
+            Notif:Destroy()
+        end
+    end)
+end
 local gameId = game.PlaceId
 print("Script ".._G.AmeScript.." is now active.")
 local AlreadyRan = game.ReplicatedStorage:FindFirstChild("AmeRanPart")
@@ -398,7 +484,7 @@ while true do
     then
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/psstman"))()
     else
-        print("psst is dead :trol:")
+        EntityDiedNotify("Psst")
     end
     end
 end)()
@@ -416,7 +502,7 @@ while true do
     then
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Entities/Stalker.lua"))()
     else
-        print("stalker is dead :trol:")
+        EntityDiedNotify("Stalker")
     end
     end
 end)()
