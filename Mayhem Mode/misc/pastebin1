@@ -69,7 +69,7 @@ entityTable.Debug.OnEntityDespawned = function()
 -- Create entity
 local entityTable = Spawner.createEntity({
     CustomName = "Manic Rush", -- Custom name of your entity
-    Model = "https://github.com/HollowedOutMods/MayhemMode/blob/main/NMRush.rbxm?raw=true", -- Can be GitHub file or rbxassetid
+    Model = "https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/modules/NMRush.rbxm", -- Can be GitHub file or rbxassetid
     Speed = 150, -- Percentage, 100 = default Rush speed
     DelayTime = 0, -- Time before starting cycles (seconds)
     HeightOffset = 0,
