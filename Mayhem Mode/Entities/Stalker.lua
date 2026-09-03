@@ -21,11 +21,6 @@ local urld = "https://github.com/wubbubunga-tll/MayhemMode/blob/main/in_room%20(
 local urle = "https://github.com/wubbubunga-tll/MayhemMode/blob/main/jumpscare%20(1).mp3?raw=true"
 local spawnsnd = Instance.new("Sound")
 local killsnd = Instance.new("Sound")
--- Synapse X shut down in Oct 2023, so the old "if syn then / else" branch
--- (which referenced undefined urla/urlb/urlc) is gone. This now just tries
--- to fetch+play through whatever asset function your executor provides,
--- wrapped in pcall so a dead link or unsupported function can't crash the
--- whole entity -- it just spawns silently (no spawn/kill jingle) instead.
 local getAssetFn = getsynasset or getcustomasset
 pcall(function()
     writefile("stspawnsnd.mp3", game:HttpGet(urld))
