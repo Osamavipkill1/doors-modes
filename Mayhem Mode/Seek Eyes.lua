@@ -21,7 +21,6 @@ game:GetService("ReplicatedStorage").GameData.LatestRoom.Changed:Connect(functio
                 local goo = x:FindFirstChild("Black")
                 local part = x:FindFirstChild("Part")
                 if eyeball and goo and part then
-                    print("gone")
                     x.Eye.Decal:Destroy() 
                 end
             end
