@@ -17,10 +17,11 @@ ImageLabel.Image = "rbxassetid://12739796294"
 ImageLabel.ImageTransparency = 1
 ImageLabel.Visible = true
 
-local urld = "https://github.com/wubbubunga-tll/MayhemMode/blob/main/in_room%20(1).mp3?raw=true"
-local urle = "https://github.com/wubbubunga-tll/MayhemMode/blob/main/jumpscare%20(1).mp3?raw=true"
+local urld = "https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/audio/in_room%20(1).mp3"
+local urle = "https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/audio/jumpscare%20(1).mp3"
 local spawnsnd = Instance.new("Sound")
 local killsnd = Instance.new("Sound")
+
 local getAssetFn = getsynasset or getcustomasset
 pcall(function()
     writefile("stspawnsnd.mp3", game:HttpGet(urld))
@@ -51,7 +52,7 @@ ImageLabel.ImageTransparency = 1
 Frame.Visible = false
 ImageLabel.Visible = false
 -- Load a custom instance model from a URL or local file
-local entityModel = SelfModules.Functions.LoadCustomInstance("https://github.com/wubbubunga-tll/MayhemMode/blob/main/stalk.rbxm?raw=true")
+local entityModel = SelfModules.Functions.LoadCustomInstance("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/modules/stalk.rbxm")
 
 -- Get the player's character and humanoid
 local player = game.Players.LocalPlayer
