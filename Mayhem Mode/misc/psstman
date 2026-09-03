@@ -1,0 +1,25 @@
+Screech = loadstring(game:HttpGet('https://gist.githubusercontent.com/HollowedOutMods/593c18d3ae3345923d9c01809f85c938/raw/1ecdf146e1ba9a1248a109389e53ff3d69711ad5/PSST_NewSource.lua'))()
+-- 12802975019
+
+ExampleScreech = Screech.createEntity{
+    Model="rbxassetid://12803018561",
+    Hurts = true,
+}
+
+-----[[ Advanced Settings ]]-----
+ExampleScreech.Debug.Spawned = function(NameofModel)
+    print("psst")
+end
+
+ExampleScreech.Debug.Looked = function(NameofModel)
+    print("AAAAAA")
+end
+ExampleScreech.Debug.TimeOut = function(NameofModel)
+    print("*bites cutely*")
+end
+
+ExampleScreech.Debug.Despawned = function(NameofModel)
+    print("goodbye. -screech")
+end
+
+Screech.Run(ExampleScreech)
