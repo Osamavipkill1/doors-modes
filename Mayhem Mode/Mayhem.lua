@@ -202,17 +202,22 @@ if gameId == 6839171747 then
         crux:Destroy()
     end
 ]]--
-Msg("Mayhem Mode - v0.1.9", 1)
+Msg("Mayhem Mode - v2.3", 1)
 local SoundReverb = game:GetService("SoundService")
 SoundReverb.AmbientReverb = 10
 task.wait(1)
 Msg("Made by ThatOneAmethystCreature#0001", 1)
 _G.AntiLog = true
 task.wait(1)
+Msg("remake by osamavipkill1", 1)
+task.wait(1)
 local SoundReverb = game:GetService("SoundService")
 SoundReverb.AmbientReverb = 10
 game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
 Msg("Mayhem mode is now active.", 2)
+task.wait(1)
+Msg("report bugs at @chkn_is_still_my_wife on discord", 2)
+
 -- paintings
 game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
     for _, v in next, game.Workspace.CurrentRooms[game.ReplicatedStorage.GameData.LatestRoom.Value].Assets:GetDescendants() do
