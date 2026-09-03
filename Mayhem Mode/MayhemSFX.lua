@@ -1,5 +1,5 @@
-local urlb = "https://raw.githubusercontent.com/Osamavipkill1/doors-modes/main/Mayhem%20Mode/misc/seekremix.mp3"
-local urlc = "https://github.com/wubbubunga-tll/music-saves/blob/main/guiding.mp3?raw=true"
+local urlb = "https://raw.githubusercontent.com/Osamavipkill1/doors-modes/main/Mayhem%20Mode/misc/audio/seekremix.mp3"
+local urlc = "https://raw.githubusercontent.com/Osamavipkill1/doors-modes/main/Mayhem%20Mode/misc/audio/guiding.mp3"
 local SeekMus = game.Workspace.Ambience_Seek
 local CurMus = game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game.Health.Music.Yellow
 local DarkMus = game.Workspace.Ambience_Dark
