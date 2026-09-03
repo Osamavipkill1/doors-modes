@@ -7,7 +7,7 @@ Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipk
 }
 
 -- Load a custom instance model from a URL or local file
-local entityModel = game:GetObjects("12802831625")[1]
+local entityModel = game:GetObjects("rbxassetid://12802831625")[1]
 
 -- Get the player's character and humanoid
 local player = game.Players.LocalPlayer
