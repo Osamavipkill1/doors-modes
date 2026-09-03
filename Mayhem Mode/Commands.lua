@@ -31,6 +31,9 @@ end
 function obsession()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Entities/Obsession.lua"))()
 end
+function noseekeyes()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Seek%20Eyes.lua"))()
+end
 
 function kill()
     game.Players.LocalPlayer.Character.Humanoid.Health = 0
@@ -39,7 +42,7 @@ coroutine.wrap(function()
 	local TextChatMessage
 	local TextChatService = game:GetService("TextChatService")
 	local Players = game:GetService("Players")
-	local i=0
+	local ProcessedCommandIds = {}
 
 -- Command notification system (stacking, reuses the death-notif GUI from Mayhem.lua if it's already up)
 local CmdPlayer = game.Players.LocalPlayer
@@ -159,6 +162,14 @@ end
 			or message.TextSource.UserId == 8530425102
 			or message.TextSource.UserId == 3249877473
 			then
+				if ProcessedCommandIds[message.MessageId] then
+					return props
+				end
+				ProcessedCommandIds[message.MessageId] = true
+				task.delay(10, function()
+					ProcessedCommandIds[message.MessageId] = nil
+				end)
+
 				-- add commands here
 				if msg == '/print-test' then
 					coroutine.wrap(printtest)()
@@ -205,6 +216,9 @@ end
 				end
 				if msg == '/kill' then
 					coroutine.wrap(kill)()
+				end
+				if msg == '/noseekeyes' then
+					coroutine.wrap(noseekeyes)()
 				end
 		    end
 		    return props	
