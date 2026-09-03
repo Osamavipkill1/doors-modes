@@ -1,9 +1,9 @@
 -- 12802494019
-local urla = "https://github.com/wubbubunga-tll/MayhemMode/blob/main/Twister_apperiance.mp3?raw=true"
-local urlb = "https://github.com/wubbubunga-tll/MayhemMode/blob/main/Twister_apperiance_3.mp3?raw=true"
-local urlc = "https://github.com/wubbubunga-tll/MayhemMode/blob/main/Twister_apperiance_next.mp3?raw=true"
-local urld = "https://github.com/wubbubunga-tll/MayhemMode/blob/main/twister_scream_appereance.mp3?raw=true"
-local urle = "https://github.com/wubbubunga-tll/MayhemMode/blob/main/death_jumpscare.mp3?raw=true"
+local urla = "https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/audio/Twister_apperiance.mp3"
+local urlb = "https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/audio/Twister_apperiance_3.mp3"
+local urlc = "https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/audio/Twister_apperiance_next.mp3"
+local urld = "https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/audio/twister_scream_appereance.mp3"
+local urle = "https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/audio/death_jumpscare.mp3"
 local appear1 = Instance.new("Sound")
 local appear2 = Instance.new("Sound")
 local appear3 = Instance.new("Sound")
