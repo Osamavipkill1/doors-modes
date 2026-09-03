@@ -396,7 +396,7 @@ while true do
     not SeekActive and
     LastRoomEntity == nil
     then
-        loadstring(game:HttpGet("https://gist.githubusercontent.com/wubbubunga-tll/4577981974e05867fdb9e646a552aeba/raw/bb77666b1e693d24ac741af90068d38f1032a886/psstman.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/psstman"))()
     else
         print("psst is dead :trol:")
     end
