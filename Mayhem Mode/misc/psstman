@@ -1,0 +1,25 @@
+Screech = loadstring(game:HttpGet('https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/PSST_NewSource.lua'))()
+-- 12802975019
+
+ExampleScreech = Screech.createEntity{
+    Model="rbxassetid://12803018561",
+    Hurts = true,
+}
+
+-----[[ Advanced Settings ]]-----
+ExampleScreech.Debug.Spawned = function(NameofModel)
+    print("psst")
+end
+
+ExampleScreech.Debug.Looked = function(NameofModel)
+    print("AAAAAA")
+end
+ExampleScreech.Debug.TimeOut = function(NameofModel)
+    print("*bites cutely*")
+end
+
+ExampleScreech.Debug.Despawned = function(NameofModel)
+    print("goodbye. -screech")
+end
+
+Screech.Run(ExampleScreech)
