@@ -182,7 +182,7 @@ if gameId == 6839171747 then
 
     _G.AntiLog = true
 
-Msg("Mayhem Mode - v2.6", 1)
+Msg("Mayhem Mode - v2.7", 1)
 task.wait(2)
 Msg("Made by ThatOneAmethystCreature#0001", 1)
 _G.AntiLog = true
@@ -493,7 +493,7 @@ task.spawn(function()
     end
 end)
 --
-
+--[[
 -- april fools!!!
 task.spawn(function()
     while true do
@@ -501,8 +501,7 @@ task.spawn(function()
         task.wait(ab:NextInteger(30, 300))
     end
 end)
-
---
+]]--
 -- manic eyes
 task.spawn(function()
     while true do
