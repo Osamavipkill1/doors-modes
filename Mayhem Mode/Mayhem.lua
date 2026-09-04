@@ -205,17 +205,17 @@ if gameId == 6839171747 then
 Msg("Mayhem Mode - v2.3", 1)
 local SoundReverb = game:GetService("SoundService")
 SoundReverb.AmbientReverb = 10
-task.wait(1)
+task.wait(2)
 Msg("Made by ThatOneAmethystCreature#0001", 1)
 _G.AntiLog = true
-task.wait(1)
+task.wait(2)
 Msg("remake by osamavipkill1", 1)
-task.wait(1)
+task.wait(2)
 local SoundReverb = game:GetService("SoundService")
 SoundReverb.AmbientReverb = 10
 game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
 Msg("Mayhem mode is now active.", 2)
-task.wait(1)
+task.wait(2)
 Msg("report bugs at @chkn_is_still_my_wife on discord", 2)
 
 -- paintings
