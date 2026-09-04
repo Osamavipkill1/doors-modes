@@ -153,7 +153,7 @@ ameRanPart.Size = Vector3.new(5, 5, 5)
 ameRanPart.Anchored = true
 ameRanPart.Parent = game.ReplicatedStorage
 print("ran")
-if gameId == 6516141723 then
+if gameId == 6839171747 then
 
     
     local r = game.JobId
