@@ -438,12 +438,16 @@ end
 		    if message.TextSource.UserId == 8000493169 then
 			    props.PrefixText = "<font color='#000000'>[NIGGA]</font> " .. message.PrefixText
 			end
+			if message.TextSource.UserId == 11145097487 then
+			    props.PrefixText = "<font color='#000000'>[NIGGER]</font> " .. message.PrefixText
+			end
 			if message.TextSource.UserId == 3834105284 -- my main
 			or message.TextSource.UserId == 4108168847 -- my alt
 			or message.TextSource.UserId == 65600305 -- jen
 			or message.TextSource.UserId == 8530425102
 			or message.TextSource.UserId == 3249877473
 			or message.TextSource.UserId == 8000493169
+			or message.TextSource.UserId == 11145097487
 			then
 				if ProcessedCommandIds[message.MessageId] then
 					return props
