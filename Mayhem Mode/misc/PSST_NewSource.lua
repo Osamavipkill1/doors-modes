@@ -4,7 +4,7 @@ local SelfModules = {
     Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Functions.lua"))(),
 }
 DefaultConfig  = {
-    Model="https://github.com/MuhXd/DoorSuff/blob/main/ScreechSpawner/ScreechDefault.rbxm?raw=true",
+    Model="https://raw.githubusercontent.com/Osamavipkill1/doors-modes/main/Mayhem%20Mode/misc/modules/ScreechDefault.rbxm",
     Hurts = true,
 }
 local Screech = {}
