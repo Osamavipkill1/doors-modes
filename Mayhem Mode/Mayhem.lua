@@ -202,7 +202,7 @@ if gameId == 6839171747 then
         crux:Destroy()
     end
 ]]--
-Msg("Mayhem Mode - v2.3", 1)
+Msg("Mayhem Mode - v2.5", 1)
 local SoundReverb = game:GetService("SoundService")
 SoundReverb.AmbientReverb = 10
 task.wait(2)
