@@ -182,7 +182,7 @@ if gameId == 6839171747 then
 
     _G.AntiLog = true
 
-Msg("Mayhem Mode - v2.5", 1)
+Msg("Mayhem Mode - v2.6", 1)
 task.wait(2)
 Msg("Made by ThatOneAmethystCreature#0001", 1)
 _G.AntiLog = true
