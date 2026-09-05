@@ -1,0 +1,108 @@
+-- FIX: this file used to have the ENTIRE createEntity/Debug/runEntity block pasted a
+-- SECOND time inside OnEntityDespawned (a copy-paste accident), and the outer config
+-- pointed Model at "rbxassetid://12802561047" which appears to be dead/inaccessible --
+-- when LoadCustomInstance fails, Spawner.createEntity returns nil, and the very next
+-- line (entityTable.Debug.OnEntitySpawned = ...) then throws "attempt to index nil",
+-- silently killing the whole script before anything could spawn. That's why this
+-- never worked even with manual commands.
+-- Now: single clean block, loading the model from this repo's own .rbxm (same
+-- reliable method Stalker.lua already uses successfully) instead of the dead asset id.
+
+game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+local Spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/EntitySpawnerFork/Source.lua"))()
+
+-- Create entity
+local entityTable = Spawner.createEntity({
+    CustomName = "Manic Rush", -- Custom name of your entity
+    Model = "https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/modules/NMRush.rbxm",
+    Speed = 150, -- Percentage, 100 = default Rush speed
+    DelayTime = 2, -- Time before starting cycles (seconds)
+    HeightOffset = 0,
+    CanKill = true,
+    KillRange = 100,
+    BackwardsMovement = false,
+    BreakLights = true,
+    FlickerLights = {
+        true, -- Enabled/Disabled
+        2, -- Time (seconds)
+    },
+    Cycles = {
+        Min = 1,
+        Max = 1,
+        WaitTime = 2,
+    },
+    CamShake = {
+        true, -- Enabled/Disabled
+        {3.5, 20, 0.1, 1}, -- Shake values (don't change if you don't know)
+        100, -- Shake start distance (from Entity to you)
+    },
+    Jumpscare = {
+        false, -- Enabled/Disabled
+        {
+            -- FIX: these two placeholder ids are used across several entities in this mod
+            -- and are texture ids you found, swapped in here too for consistency
+            Image1 = "rbxassetid://136212819987673", -- Image1 url
+            Image2 = "rbxassetid://77350187016650", -- Image2 url
+            Shake = true,
+            Sound1 = {
+                10483790459, -- SoundId
+                { Volume = 0.5 }, -- Sound properties
+            },
+            Sound2 = {
+                10483837590, -- SoundId
+                { Volume = 0.5 }, -- Sound properties
+            },
+            Flashing = {
+                true, -- Enabled/Disabled
+                Color3.fromRGB(255, 255, 255), -- Color
+            },
+            Tease = {
+                true, -- Enabled/Disabled
+                Min = 1,
+                Max = 3,
+            },
+        },
+    },
+    CustomDialog = {"Oh... hello.", "Not this place again...", "Nevermind that... What'd you die to?", "Oh... the fast one.", "It doesn't like to slow down, so...", "Maybe you could call it Manic Rush?", "Anyways, I hope you don't mind trying again. It would be helpful."},
+    Color = "Yellow",
+})
+
+-- FIX: guard against a nil entityTable instead of crashing on the next line
+if not entityTable then
+    warn("[Mayhem/pastebin1] Manic Rush failed to create -- see the createEntity warning above for why.")
+    return
+end
+
+-----[[  Debug -=- Advanced  ]]-----
+entityTable.Debug.OnEntitySpawned = function()
+    print("Entity has spawned:", entityTable)
+end
+
+entityTable.Debug.OnEntityDespawned = function()
+    print("Entity has despawned:", entityTable)
+end
+
+entityTable.Debug.OnEntityStartMoving = function()
+    print("Entity has started moving:", entityTable)
+end
+
+entityTable.Debug.OnEntityFinishedRebound = function()
+    print("Entity has finished rebound:", entityTable)
+end
+
+entityTable.Debug.OnEntityEnteredRoom = function(room)
+    print("Entity:", entityTable, "has entered room:", room)
+end
+
+entityTable.Debug.OnLookAtEntity = function()
+    print("Player has looked at entity:", entityTable)
+end
+
+entityTable.Debug.OnDeath = function()
+    warn("Player has died.")
+    pcall(function() SetDeathCause("Manic Rush") end)
+end
+------------------------------------
+
+-- Run the created entity
+Spawner.runEntity(entityTable)
