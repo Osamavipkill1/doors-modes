@@ -34,6 +34,9 @@ end
 function noseekeyes()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Seek%20Eyes.lua"))()
 end
+function bleed()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Entities/Bleed.lua"))()
+end
 function kill()
     game.Players.LocalPlayer.Character.Humanoid.Health = 0
 end
@@ -205,6 +208,10 @@ end
 				if msg == '/twister' then
 					CommandNotify("Spawning Twister")
 					coroutine.wrap(twister)()
+				end
+				if msg == '/bleed' then
+    				CommandNotify("Spawning Bleed")
+    				coroutine.wrap(bleed)()
 				end
 				if msg == '/fog' then
 					CommandNotify("Spawning Fog")
