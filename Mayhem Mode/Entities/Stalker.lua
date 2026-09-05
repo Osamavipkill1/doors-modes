@@ -1,168 +1,117 @@
-local ScreenGui = Instance.new("ScreenGui")
-local Frame = Instance.new("Frame")
-local ImageLabel = Instance.new("ImageLabel")
-ScreenGui.ResetOnSpawn = false
-ScreenGui.IgnoreGuiInset = true
-ScreenGui.DisplayOrder = 100
-ScreenGui.Parent = game.CoreGui
-Frame.Parent = ScreenGui
-Frame.BackgroundColor3 = Color3.new(0, 0, 0)
-Frame.BackgroundTransparency = 1
-Frame.Visible = false
-Frame.Size = UDim2.new(1, 0, 1, 0)
-Frame.Position = UDim2.new(0, 0, 0, 0)
-Frame.BorderSizePixel = 0
-
-ImageLabel.Parent = Frame
-ImageLabel.Size = UDim2.new(1.2, 0, 1, 0)
-ImageLabel.Position = UDim2.new(-0.1, 0, 0, 0)
-ImageLabel.Image = "rbxassetid://107254484547011"
-ImageLabel.ImageTransparency = 1
-ImageLabel.BackgroundTransparency = 1
-ImageLabel.Visible = true
-
-local urld = "https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/audio/in_room%20(1).mp3"
-local urle = "https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/audio/jumpscare%20(1).mp3"
+local urla = "https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/audio/Twister_apperiance.mp3"
+local urlb = "https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/audio/Twister_apperiance_3.mp3"
+local urlc = "https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/audio/Twister_apperiance_next.mp3"
+local urld = "https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/audio/twister_scream_appereance.mp3"
+local urle = "https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/audio/death_jumpscare.mp3"
+local appear1 = Instance.new("Sound")
+local appear2 = Instance.new("Sound")
+local appear3 = Instance.new("Sound")
 local spawnsnd = Instance.new("Sound")
 local killsnd = Instance.new("Sound")
 
 local getAssetFn = getsynasset or getcustomasset
 pcall(function()
-    writefile("stspawnsnd.mp3", game:HttpGet(urld))
-    writefile("stkillsnd.mp3", game:HttpGet(urle))
+    writefile("spawn1.mp3", game:HttpGet(urla))
+    writefile("spawn2.mp3", game:HttpGet(urlb))
+    writefile("spawn3.mp3", game:HttpGet(urlc))
+    writefile("spawnsnd.mp3", game:HttpGet(urld))
+    writefile("killsnd.mp3", game:HttpGet(urle))
+    appear1.Parent = game.Workspace
+    appear2.Parent = game.Workspace
+    appear3.Parent = game.Workspace
     spawnsnd.Parent = game.Workspace
     killsnd.Parent = game.Workspace
-    spawnsnd.SoundId = getAssetFn("stspawnsnd.mp3")
-    killsnd.SoundId = getAssetFn("stkillsnd.mp3")
+    appear1.SoundId = getAssetFn("spawn1.mp3")
+    appear2.SoundId = getAssetFn("spawn2.mp3")
+    appear3.SoundId = getAssetFn("spawn3.mp3")
+    spawnsnd.SoundId = getAssetFn("spawnsnd.mp3")
+    killsnd.SoundId = getAssetFn("killsnd.mp3")
+    appear1.Volume = 1
+    appear2.Volume = 1
+    appear3.Volume = 1
     spawnsnd.Volume = 1
     killsnd.Volume = 1
+    appear1.Looped = false
+    appear2.Looped = false
+    appear3.Looped = false
     spawnsnd.Looped = false
     killsnd.Looped = false
 end)
+
+appear1:Play()
+task.wait(0.25)
+appear2:Play()
+task.wait(0.25)
+appear3:Play()
+game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
 
 local lastroom = game:GetService("ReplicatedStorage").GameData.LatestRoom.Value
 local SelfModules = {
 Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/EntitySpawnerFork/Functions.lua"))(),
 }
 
-local entityModel = SelfModules.Functions.LoadCustomInstance("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/modules/stalk.rbxm")
+local entityModel = game:GetObjects("rbxassetid://12802494019")[1]
 
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoid = character:WaitForChild("Humanoid")
 
+local floor = game:GetService("Workspace").CurrentRooms[lastroom].Parts.Floor.Position
 if typeof(entityModel) == "Instance" and entityModel.ClassName == "Model" then
 entityModel.PrimaryPart = entityModel.PrimaryPart or entityModel:FindFirstChildWhichIsA("BasePart")
 if entityModel.PrimaryPart then
-    local direction = character.HumanoidRootPart.CFrame.LookVector
-    local spawnPosition = character.HumanoidRootPart.Position + direction * 10
-    entityModel.PrimaryPart.Position = spawnPosition
+    entityModel.PrimaryPart.Position = floor + Vector3.new(0, 5, 0)
     entityModel.Parent = game.Workspace
     entityModel.PrimaryPart.Anchored = true
     if entityModel.Name then
-        entityModel.Name = "StalkerMonster"
+        entityModel.Name = "ScreamStare"
     end
     entityModel:SetAttribute("IsCustomEntity", true)
     entityModel:SetAttribute("NoAI", false)
 
-local cube = Instance.new("Part")
-cube.Anchored = true
-cube.CanCollide = false
-cube.Size = Vector3.new(1, 1, 1)
-cube.Parent = workspace
-cube.Position = entityModel.PrimaryPart.Position
-cube.Transparency = 1
+local CanMove = false
+local StopChecking = false
 
--- despawn entity if player leaves the room
-game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
-    pcall(function() cube:Destroy() end)
-    pcall(function() entityModel:Destroy() end)
-    pcall(function() ScreenGui:Destroy() end)
-end)
-
-spawnsnd:Play()
-
--- lookTime tracks cumulative seconds the player has been looking at the Stalker
-local lookTime = 0
-local wv = 0.1
-local jumpscareTriggered = false
-
-while true do
-    task.wait(wv)
-
-    if humanoid.Health <= 0 then break end
-
-    local toEntity = (cube.Position - character.HumanoidRootPart.Position)
-    local dot = toEntity.Unit:Dot(character.HumanoidRootPart.CFrame.LookVector)
-
-    if dot > 0.7 then
-        -- player is looking at the Stalker — accumulate gaze time
-        lookTime = lookTime + wv
-
-        if lookTime >= 2 and not jumpscareTriggered then
-            jumpscareTriggered = true
-
-            -- jumpscare sequence
-            killsnd:Play()
-            -- FIX: damage is 33 as intended
-            humanoid:TakeDamage(33)
-
-            Frame.BackgroundTransparency = 0
-            Frame.Visible = true
-            ImageLabel.Visible = true
-            ImageLabel.ImageTransparency = 0
-
-            local msg = {"Oh... hello.", "Not this place again...", "Nevermind that... What'd you die to?", "Oh... the tall one.", "I don't usually give out hints, but it hates being seen, and much prefers being the one to do so...", "Maybe you could call it Stalker?", "Anyways, I hope you don't mind trying again. It would be helpful."}
-            local color = "Yellow"
-            pcall(function() game.ReplicatedStorage.GameStats["Player_".. player.Name].Total.DeathCause.Value = "Stalker" end)
-            pcall(firesignal, game:GetService("ReplicatedStorage").EntityInfo.DeathHint.OnClientEvent, msg, color)
-
-            task.wait(0.5)
-            game:GetService("TweenService"):Create(ImageLabel, TweenInfo.new(0.175, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
-                Size = UDim2.new(2.4, 0, 2, 0),
-                Position = UDim2.new(-0.7, 0, -0.5, 0),
-            }):Play()
-            task.wait(0.175)
-            game:GetService("TweenService"):Create(ImageLabel, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
-                Size = UDim2.new(4.8, 0, 4, 0),
-                Position = UDim2.new(-1.9, 0, -1.5, 0),
-            }):Play()
-            task.wait(0.2)
-            game:GetService("TweenService"):Create(ImageLabel, TweenInfo.new(0.175, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
-                Size = UDim2.new(5.2, 0, 4.25, 0),
-                Position = UDim2.new(-2.1, 0, -1.6, 0),
-            }):Play()
-            task.wait(0.175)
-            pcall(function() ImageLabel:Destroy() end)
-            pcall(function() Frame:Destroy() end)
-            pcall(function() ScreenGui:Destroy() end)
+task.spawn(function()
+    while true do
+        if StopChecking then
+            game:GetService("TweenService"):Create(entityModel.ScreamNew.Attachment.PointLight, TweenInfo.new(1, Enum.EasingStyle.Linear), {Brightness = 0}):Play()
+            game:GetService("TweenService"):Create(entityModel.ScreamNew.Attachment.PointLight, TweenInfo.new(1, Enum.EasingStyle.Linear), {Range = 0}):Play()
+            entityModel.ScreamNew.Attachment.ParticleEmitter.Enabled = false
+            task.wait(0.75)
+            entityModel.ScreamNew.Attachment.BlackTrail.Enabled = false
+            task.wait(1)
+            entityModel:Destroy()
             break
         end
-    else
-        -- FIX: was `else break` which exited the loop the moment the player
-        -- looked at the Stalker before 2s had passed, making it impossible to trigger.
-        -- Now we just reset the gaze timer so the player must hold the stare continuously.
-        lookTime = 0
+        task.wait(0.5)
+        if humanoid.Health <= 0 then
+            killsnd:Play()
+            pcall(function() appear1:Destroy() end)
+            pcall(function() appear2:Destroy() end)
+            pcall(function() appear3:Destroy() end)
+            pcall(function() spawnsnd:Destroy() end)
+            local msg = {"Oh... hello.", "Not this place again...", "Nevermind that... What'd you die to?", "Oh... those eyes.", "It is very loud...", "I don't usually give hints, but it likes to come back, and hates movement...", "It also loves a plot twist...", "Maybe you could call it Twister?", "Anyways, I hope you don't mind trying again. It would be helpful."}
+            local color = "Yellow"
+            pcall(firesignal, game:GetService("ReplicatedStorage").EntityInfo.DeathHint.OnClientEvent, msg, color)
+            pcall(function() game.ReplicatedStorage.GameStats["Player_".. player.Name].Total.DeathCause.Value = "Twister" end)
+            StopChecking = true
+        end
+        -- FIX: damage increased from 15 to 33
+        if not StopChecking and not CanMove and humanoid.MoveDirection.Magnitude > 0 then
+            humanoid:TakeDamage(33)
+        end
+        task.wait(0.5)
     end
-end
-
--- sink entity into the floor and destroy
-pcall(function()
-    game:GetService("TweenService"):Create(entityModel.RushNew.Attachment.PointLight, TweenInfo.new(1, Enum.EasingStyle.Linear), {Brightness = 0}):Play()
-    game:GetService("TweenService"):Create(entityModel.RushNew.Attachment.PointLight, TweenInfo.new(1, Enum.EasingStyle.Linear), {Range = 0}):Play()
-    game:GetService("TweenService"):Create(entityModel.RushNew.Attachment.PointLight2, TweenInfo.new(1, Enum.EasingStyle.Linear), {Brightness = 0}):Play()
-    game:GetService("TweenService"):Create(entityModel.RushNew.Attachment.PointLight2, TweenInfo.new(1, Enum.EasingStyle.Linear), {Range = 0}):Play()
-    entityModel.RushNew.Attachment.ParticleEmitter.Rate = 7.5
-    task.wait(0.1)
-    entityModel.RushNew.Attachment.ParticleEmitter.Enabled = false
-    local entity = entityModel.PrimaryPart
-    local endPosition = entity.Position - Vector3.new(0, 20, 0)
-    local tween = game:GetService("TweenService"):Create(entity, TweenInfo.new(0.25, Enum.EasingStyle.Linear), {Position = endPosition})
-    tween:Play()
-    entityModel.RushNew.Attachment.GlitchEffect:Destroy()
-    task.wait(0.26)
-    entityModel:Destroy()
 end)
-pcall(function() cube:Destroy() end)
+
+-- volume fade out
+task.wait(2)
+for vol = 9, 0, -1 do
+    entityModel.ScreamNew.Footsteps.Volume = vol / 10
+    entityModel.ScreamNew.PlaySound.Volume = vol / 10
+    task.wait(0.1)
+end
+StopChecking = true
 end
 end
