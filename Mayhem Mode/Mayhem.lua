@@ -30,7 +30,6 @@ task.spawn(function()
     end
 end)
 
---
 local LastEntity = nil
 local LastRoomEntity = nil
 _G.AntiLog = true
@@ -67,7 +66,7 @@ function TitleMsg(Title)
     end
 end
 
--- Stacking entity-death notifications (replaces the old print() spam)
+-- Stacking entity-death notifications
 local NotifTween = game:GetService("TweenService")
 local NotifPlayer = game.Players.LocalPlayer
 local NotifPlayerGui = NotifPlayer:WaitForChild("PlayerGui")
@@ -96,7 +95,6 @@ NotifLayout.Parent = NotifContainer
 
 local NotifCount = 0
 
--- entityName: display name shown in the notification, e.g. "Stalker", "Psst"
 function EntityDiedNotify(entityName)
     NotifCount = NotifCount + 1
     local order = NotifCount
@@ -147,9 +145,7 @@ function EntityDiedNotify(entityName)
         NotifTween:Create(Label, fadeOut, {TextTransparency = 1}):Play()
         fadeOutTween:Play()
         fadeOutTween.Completed:Wait()
-        if Notif then
-            Notif:Destroy()
-        end
+        if Notif then Notif:Destroy() end
     end)
 end
 
@@ -182,7 +178,7 @@ if gameId == 6839171747 then
 
     _G.AntiLog = true
 
-Msg("Mayhem Mode - v2.8", 1)
+Msg("Mayhem Mode - v2.5", 1)
 task.wait(2)
 Msg("Made by ThatOneAmethystCreature#0001", 1)
 _G.AntiLog = true
@@ -197,14 +193,17 @@ Msg("report bugs at @chkn_is_still_my_wife on discord", 2)
 -- paintings
 game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
     for _, v in next, game.Workspace.CurrentRooms[game.ReplicatedStorage.GameData.LatestRoom.Value].Assets:GetDescendants() do
-        -- Painting
+        -- FIX: v.Name ~= "Paintings" | single roll with elseif prevents multi-replace
         if string.match(v.Name, "Painting") and not string.match(v.Name, "Seek") and v.Name ~= "Paintings" then
             local paintingRoll = math.random(1, 6)
+            -- 1=Birb, 2=Screech, 3=Figure(room50 only), 4=Cat, 5=Village, 6=keep original
+
             if paintingRoll == 1 then
                 local BirbPainting = v:Clone()
                 BirbPainting.Parent = v.Parent
                 BirbPainting.Canvas.SurfaceGui.ImageLabel.Image = "rbxassetid://91452104822736"
-                BirbPainting.Canvas.SurfaceGui.ImageLabel.BackgroundTransparency = 0
+                -- FIX: was BackgroundTransparency=0 (opaque pink/brown). Must be 1 (transparent) so image shows.
+                BirbPainting.Canvas.SurfaceGui.ImageLabel.BackgroundTransparency = 1
                 BirbPainting.Name = "Birb Painting"
                 local birbToggle = true
                 BirbPainting.InteractPrompt.Triggered:Connect(function()
@@ -218,41 +217,45 @@ game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
                     end
                 end)
                 v:Destroy()
+
             elseif paintingRoll == 2 then
                 local PsstPainting = v:Clone()
                 PsstPainting.Parent = v.Parent
                 PsstPainting.Canvas.SurfaceGui.ImageLabel.Image = "rbxassetid://88174709585315"
-                PsstPainting.Canvas.SurfaceGui.ImageLabel.BackgroundTransparency = 0
+                PsstPainting.Canvas.SurfaceGui.ImageLabel.BackgroundTransparency = 1
                 PsstPainting.Name = "Screech Painting"
                 PsstPainting.InteractPrompt.Triggered:Connect(function()
                     Msg("This painting is titled \"Psst\".", 1)
                 end)
                 v:Destroy()
+
             elseif paintingRoll == 3 and game.ReplicatedStorage.GameData.LatestRoom.Value == 50 then
                 local FingerPainting = v:Clone()
                 FingerPainting.Parent = v.Parent
                 FingerPainting.Canvas.SurfaceGui.ImageLabel.Image = "rbxassetid://120827636037741"
-                FingerPainting.Canvas.SurfaceGui.ImageLabel.BackgroundTransparency = 0
+                FingerPainting.Canvas.SurfaceGui.ImageLabel.BackgroundTransparency = 1
                 FingerPainting.Name = "Figure Painting"
                 FingerPainting.InteractPrompt.Triggered:Connect(function()
                     Msg("This painting is titled \"Blind but Deadly\".", 1)
                 end)
                 v:Destroy()
+
             elseif paintingRoll == 4 then
                 local CatPainting = v:Clone()
                 CatPainting.Parent = v.Parent
                 CatPainting.Canvas.SurfaceGui.ImageLabel.Image = "rbxassetid://134191008351903"
-                CatPainting.Canvas.SurfaceGui.ImageLabel.BackgroundTransparency = 0
+                CatPainting.Canvas.SurfaceGui.ImageLabel.BackgroundTransparency = 1
                 CatPainting.Name = "Cat Painting"
                 CatPainting.InteractPrompt.Triggered:Connect(function()
                     Msg("This painting is titled \"Dead of Night\".", 1)
                 end)
                 v:Destroy()
+
             elseif paintingRoll == 5 then
                 local VillagePainting = v:Clone()
                 VillagePainting.Parent = v.Parent
                 VillagePainting.Canvas.SurfaceGui.ImageLabel.Image = "rbxassetid://86351095154741"
-                VillagePainting.Canvas.SurfaceGui.ImageLabel.BackgroundTransparency = 0
+                VillagePainting.Canvas.SurfaceGui.ImageLabel.BackgroundTransparency = 1
                 VillagePainting.Name = "Village Painting"
                 VillagePainting.InteractPrompt.Triggered:Connect(function()
                     Msg("This painting is titled \"Artists View\".", 1)
@@ -445,6 +448,7 @@ game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
     end
 end)
 
+-- psst
 task.spawn(function()
 while true do
     task.wait(math.random(15, 45))
@@ -461,6 +465,8 @@ while true do
     end
     end
 end)
+
+-- stalker
 task.spawn(function()
 while true do
     local minv = math.random(10, 50)
@@ -493,19 +499,20 @@ task.spawn(function()
     end
 end)
 --
---[[
+
 -- april fools!!!
 task.spawn(function()
     while true do
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Entities/Envy.lua"))()
-        task.wait(ab:NextInteger(30, 300))
+        task.wait(ab:NextInteger(300, 400))
     end
 end)
-]]--
+
+--
 -- manic eyes
 task.spawn(function()
     while true do
-        task.wait(eb:NextInteger(250, 320))
+        task.wait(eb:NextInteger(60, 120))
         print("stop looking at the console and just play the game, also eyes")
         if LastRoomEntity == nil and not SeekActive then
             loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Entities/Manic%20Eyes.lua"))()
