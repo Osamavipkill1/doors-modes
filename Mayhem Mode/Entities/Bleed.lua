@@ -310,61 +310,86 @@ Spawner.runEntity = function(entityTable)
     end)
 
     task.spawn(entityTable.Debug.OnEntityStartMoving)
+
+    local BLOOD_TOUCH_DAMAGE = 6
+    local BLOOD_TOUCH_DEBOUNCE = 1 -- seconds before the same puddle can hurt the same player again
+
     function generateBlood()
         local blood = Instance.new("Part")
-                        blood.Anchored = true
-                        blood.Parent = workspace
-                        blood.Size = Vector3.new(0.1,0.1,0.1)
-                        blood.Transparency = 1
-                        blood.Name = "Blood"
-                        local particle = Instance.new("ParticleEmitter")
-                        particle.Parent = blood
-                        particle = blood.ParticleEmitter
-                        particle.Orientation = Enum.ParticleOrientation.VelocityParallel
-                        particle.EmissionDirection = Enum.NormalId.Top
-                        particle.Color = ColorSequence.new(Color3.fromRGB(98, 0, 0))
-                        particle.LightEmission = -1
-                        particle.LightInfluence = 0.45
-                        particle.ZOffset = -1
-                        particle.Transparency = NumberSequence.new(.2)
-                        particle.Lifetime = NumberRange.new(0.6, 1.3)
-                        particle.Rate = 10000003288
-                        particle.LockedToPart = true
-                        particle.Rotation = NumberRange.new(90, 90)
-                        particle.RotSpeed = NumberRange.new(-5, 5)
-                        particle.Speed = NumberRange.new(8, 18)
-                        particle.SpreadAngle = Vector2.new(-360,360)
-                        particle.Acceleration = Vector3.new(0, -15, 0)
-                        particle.VelocityInheritance = 0.15
-                        particle.Texture = "rbxassetid://92114008645309"
-                        pcall(function()
-                        local pos  = entityModel.Main.Position
+        blood.Anchored = true
+        blood.CanCollide = false -- don't let leftover blood physically block movement
+        blood.CanQuery = true    -- still needed for Touched events to fire
+        blood.Parent = workspace
+        blood.Size = Vector3.new(2, 0.1, 2) -- small hazard footprint, not a physics obstacle
+        blood.Transparency = 1
+        blood.Name = "Blood"
 
-                        blood.Position = Vector3.new(pos.x+math.random(-5,5),pos.y+math.random(-5,5),pos.z+math.random(-5,5))
-                        blood.Orientation = Vector3.new(math.random(0, 360),math.random(0, 360),math.random(0, 360))    
-                        end)
+        local particle = Instance.new("ParticleEmitter")
+        particle.Parent = blood
+        particle.Orientation = Enum.ParticleOrientation.VelocityParallel
+        particle.EmissionDirection = Enum.NormalId.Top
+        particle.Color = ColorSequence.new(Color3.fromRGB(98, 0, 0))
+        particle.LightEmission = -1
+        particle.LightInfluence = 0.45
+        particle.ZOffset = -1
+        particle.Transparency = NumberSequence.new(.2)
+        particle.Lifetime = NumberRange.new(0.6, 1.3)
+        particle.Rate = 60 -- was 10000003288 - that was emitting ~10 billion particles/sec, a crash/lag bug
+        particle.LockedToPart = true
+        particle.Rotation = NumberRange.new(90, 90)
+        particle.RotSpeed = NumberRange.new(-5, 5)
+        particle.Speed = NumberRange.new(8, 18)
+        particle.SpreadAngle = Vector2.new(-360,360)
+        particle.Acceleration = Vector3.new(0, -15, 0)
+        particle.VelocityInheritance = 0.15
+        particle.Texture = "rbxassetid://92114008645309"
+
+        -- Position it near the entity's actual, guaranteed root part (PrimaryPart),
+        -- not the unverified "Main" part that could silently fail and drop blood at (0,0,0)
+        local pos = entityModel.PrimaryPart.Position
+        local spawnPos = Vector3.new(pos.X + math.random(-5,5), pos.Y + math.random(-5,5), pos.Z + math.random(-5,5))
+
+        -- Snap it down onto the floor beneath it (not a random direction for 5000 studs,
+        -- which could send it onto an unrelated, distant surface)
+        local floorRay = workspace:Raycast(spawnPos, Vector3.new(0, -20, 0))
+        blood.Position = floorRay and floorRay.Position or spawnPos
+        blood.Orientation = Vector3.new(0, math.random(0, 360), 0)
+
+        -- Touch damage, with a debounce so standing in it doesn't deal 6 damage
+        -- dozens of times per second (Touched fires repeatedly on sustained contact)
+        local debounced = {}
+        blood.Touched:Connect(function(hit)
+            local touchedChar = hit.Parent
+            local touchedHum = touchedChar and touchedChar:FindFirstChildOfClass("Humanoid")
+            if not touchedHum or touchedHum.Health <= 0 then return end
+            if debounced[touchedChar] then return end
+
+            debounced[touchedChar] = true
+            touchedHum:TakeDamage(BLOOD_TOUCH_DAMAGE)
+
+            task.delay(BLOOD_TOUCH_DEBOUNCE, function()
+                debounced[touchedChar] = nil
+            end)
+        end)
+
         return blood
     end
-    
+
+    -- Spawn blood continuously for as long as the entity is actually alive/moving,
+    -- instead of a fixed 75-particle burst that only covered the first 0.75 seconds
     task.spawn(function()
-        for i=1,75 do
-            wait(0.01)
-            task.spawn(function()
-                local blood = generateBlood()
-                local go = true
-                while go do 
-                    local ray = workspace:Raycast(blood.Position, blood.CFrame.LookVector * 5000)
-                    if ray then
-                        blood.Position = ray.Position
-                    end
-                    go = false
-                    wait()
+        while entityModel.Parent and not entityModel:GetAttribute("NoAI") do
+            local blood = generateBlood()
+
+            task.delay(15, function()
+                if blood and blood.Parent then
+                    blood.ParticleEmitter.Enabled = false
+                    task.wait(3)
+                    blood:Destroy()
                 end
-                task.wait(15)
-                blood.ParticleEmitter.Enabled = false
-                task.wait(3)
-                blood:Destroy()
             end)
+
+            task.wait(0.1)
         end
     end)
 
