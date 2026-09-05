@@ -201,7 +201,7 @@ game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
             if paintingRoll == 1 then
                 local BirbPainting = v:Clone()
                 BirbPainting.Parent = v.Parent
-                BirbPainting.Canvas.SurfaceGui.ImageLabel.Image = "rbxassetid://91452104822736"
+                BirbPainting.Canvas.SurfaceGui.ImageLabel.Image = "rbxassetid://104590205087459"
                 -- FIX: was BackgroundTransparency=0 (opaque pink/brown). Must be 1 (transparent) so image shows.
                 BirbPainting.Canvas.SurfaceGui.ImageLabel.BackgroundTransparency = 1
                 BirbPainting.Name = "Birb Painting"
@@ -221,7 +221,7 @@ game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
             elseif paintingRoll == 2 then
                 local PsstPainting = v:Clone()
                 PsstPainting.Parent = v.Parent
-                PsstPainting.Canvas.SurfaceGui.ImageLabel.Image = "rbxassetid://88174709585315"
+                PsstPainting.Canvas.SurfaceGui.ImageLabel.Image = "rbxassetid://135192175310255"
                 PsstPainting.Canvas.SurfaceGui.ImageLabel.BackgroundTransparency = 1
                 PsstPainting.Name = "Screech Painting"
                 PsstPainting.InteractPrompt.Triggered:Connect(function()
@@ -232,7 +232,7 @@ game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
             elseif paintingRoll == 3 and game.ReplicatedStorage.GameData.LatestRoom.Value == 50 then
                 local FingerPainting = v:Clone()
                 FingerPainting.Parent = v.Parent
-                FingerPainting.Canvas.SurfaceGui.ImageLabel.Image = "rbxassetid://120827636037741"
+                FingerPainting.Canvas.SurfaceGui.ImageLabel.Image = "rbxassetid://81975596270988"
                 FingerPainting.Canvas.SurfaceGui.ImageLabel.BackgroundTransparency = 1
                 FingerPainting.Name = "Figure Painting"
                 FingerPainting.InteractPrompt.Triggered:Connect(function()
@@ -243,7 +243,7 @@ game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
             elseif paintingRoll == 4 then
                 local CatPainting = v:Clone()
                 CatPainting.Parent = v.Parent
-                CatPainting.Canvas.SurfaceGui.ImageLabel.Image = "rbxassetid://134191008351903"
+                CatPainting.Canvas.SurfaceGui.ImageLabel.Image = "rbxassetid://102947539228320"
                 CatPainting.Canvas.SurfaceGui.ImageLabel.BackgroundTransparency = 1
                 CatPainting.Name = "Cat Painting"
                 CatPainting.InteractPrompt.Triggered:Connect(function()
@@ -254,7 +254,7 @@ game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
             elseif paintingRoll == 5 then
                 local VillagePainting = v:Clone()
                 VillagePainting.Parent = v.Parent
-                VillagePainting.Canvas.SurfaceGui.ImageLabel.Image = "rbxassetid://86351095154741"
+                VillagePainting.Canvas.SurfaceGui.ImageLabel.Image = "rbxassetid://100105252947883"
                 VillagePainting.Canvas.SurfaceGui.ImageLabel.BackgroundTransparency = 1
                 VillagePainting.Name = "Village Painting"
                 VillagePainting.InteractPrompt.Triggered:Connect(function()
