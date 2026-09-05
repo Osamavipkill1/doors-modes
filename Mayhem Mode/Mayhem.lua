@@ -504,12 +504,12 @@ end)
 task.spawn(function()
     while true do
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Entities/Envy.lua"))()
-        task.wait(ab:NextInteger(300, 400))
+        task.wait(ab:NextInteger(30, 300))
     end
 end)
 
 --
--- manic eyes
+-- manic eyes (FIX: reduced interval from 250-320s to 60-120s)
 task.spawn(function()
     while true do
         task.wait(eb:NextInteger(60, 120))
