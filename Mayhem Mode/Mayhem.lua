@@ -500,7 +500,7 @@ task.spawn(function()
 end)
 --
 
--- april fools!!!
+--[[ april fools!!!
 task.spawn(function()
     while true do
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Entities/Envy.lua"))()
@@ -508,7 +508,7 @@ task.spawn(function()
     end
 end)
 
---
+]]--
 -- manic eyes
 task.spawn(function()
     while true do
