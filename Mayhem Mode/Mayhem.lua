@@ -180,7 +180,7 @@ if gameId == 6839171747 then
 
 Msg("Mayhem Mode - v2.9", 1)
 task.wait(2)
-Msg("Made by ThatOneAmethystCreature#0001", 1)
+Msg("Made by ThatOneAmethystCreature#0001, ame", 1)
 _G.AntiLog = true
 task.wait(2)
 Msg("remake by osamavipkill1", 1)
