@@ -178,7 +178,7 @@ if gameId == 6839171747 then
 
     _G.AntiLog = true
 
-Msg("Mayhem Mode - v2.5", 1)
+Msg("Mayhem Mode - v2.9", 1)
 task.wait(2)
 Msg("Made by ThatOneAmethystCreature#0001", 1)
 _G.AntiLog = true
@@ -504,12 +504,12 @@ end)
 task.spawn(function()
     while true do
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Entities/Envy.lua"))()
-        task.wait(ab:NextInteger(30, 300))
+        task.wait(ab:NextInteger(300, 400))
     end
 end)
 
 --
--- manic eyes (FIX: reduced interval from 250-320s to 60-120s)
+-- manic eyes
 task.spawn(function()
     while true do
         task.wait(eb:NextInteger(60, 120))
