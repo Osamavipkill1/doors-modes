@@ -23,10 +23,17 @@
 
 local AttackPlaySound, CaughtPlaySound
 
+-- FIX: was reading from game:GetService("StarterGui") -- that's just the static
+-- template Roblox copies into each player's PlayerGui at spawn, not the live running
+-- UI. These Sound objects are almost certainly created at runtime, so they'd only
+-- ever exist under the player's actual PlayerGui -- StarterGui would never have them,
+-- meaning this lookup silently timed out and came back empty every single time.
+-- The rest of the mod already proves this: Msg()/TitleMsg() correctly read from
+-- game.Players.LocalPlayer.PlayerGui.MainUI..., never StarterGui.
 do
     local ok = pcall(function()
-        AttackPlaySound = game:GetService("StarterGui"):WaitForChild("MainUI", 5)
-            :WaitForChild("Initiator", 5):WaitForChild("Main_Game", 5)
+        AttackPlaySound = game.Players.LocalPlayer:WaitForChild("PlayerGui", 5)
+            :WaitForChild("MainUI", 5):WaitForChild("Initiator", 5):WaitForChild("Main_Game", 5)
             :WaitForChild("RemoteListener", 5):WaitForChild("Modules", 5)
             :WaitForChild("Screech", 5):WaitForChild("Attack", 5)
     end)
@@ -37,8 +44,8 @@ end
 
 do
     local ok = pcall(function()
-        CaughtPlaySound = game:GetService("StarterGui"):WaitForChild("MainUI", 5)
-            :WaitForChild("Initiator", 5):WaitForChild("Main_Game", 5)
+        CaughtPlaySound = game.Players.LocalPlayer:WaitForChild("PlayerGui", 5)
+            :WaitForChild("MainUI", 5):WaitForChild("Initiator", 5):WaitForChild("Main_Game", 5)
             :WaitForChild("RemoteListener", 5):WaitForChild("Modules", 5)
             :WaitForChild("Screech", 5):WaitForChild("Caught", 5)
     end)
@@ -46,6 +53,15 @@ do
         warn("[Mayhem/Screech] Could not find Caught sound at the expected UI path -- caught sound will be skipped.")
     end
 end
+
+-- OPTIONAL: the "it's here" appear sound (Root.Sound, played a few lines into
+-- Screech.Run below) is baked into the entity model itself (rbxassetid://12803018561),
+-- which lives on Roblox's servers -- there's no way to inspect or fix what's wrong
+-- with it from here. If you want to force it to play a DIFFERENT sound instead of
+-- whatever's currently baked in, put a real asset id below (as a string, e.g.
+-- "rbxassetid://1234567890") and it'll override it automatically. Leave it nil to
+-- leave the model's own sound untouched.
+local AppearSoundOverride = nil
 
 local SelfModules = {
     -- FIX: was "https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Functions.lua"
@@ -101,6 +117,9 @@ FakeScreech2 = Model.entity
 			end;
 			local v10 = tick();
 			v7.Idle:Play();
+			if AppearSoundOverride then
+				pcall(function() v3.Root.Sound.SoundId = AppearSoundOverride end)
+			end
 			v3.Root.Sound:Play();
 			local v11 = tick();
 			local v12 = 5 + math.random(1, 10) / 5;
