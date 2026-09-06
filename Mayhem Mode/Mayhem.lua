@@ -349,7 +349,6 @@ task.spawn(function()
 end)
 --
 -- threat
---[[
 function ThreatSpawn()
     while true do
         game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
@@ -388,7 +387,6 @@ task.spawn(function()
         ThreatSpawn()
     end
 end)
---]]
 -- twister
 task.spawn(function()
     while true do
