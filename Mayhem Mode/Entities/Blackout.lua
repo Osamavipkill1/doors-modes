@@ -59,7 +59,7 @@ function setup_blackout()
     ImageLabel.Parent = Frame
     ImageLabel.Size = UDim2.new(1.2, 0, 1, 0)
     ImageLabel.Position = UDim2.new(-0.1, 0, 0, 0)
-    ImageLabel.Image = "rbxassetid://93331162433769"
+    ImageLabel.Image = "rbxassetid://140286191775781"
     ImageLabel.ImageTransparency = 1
     ImageLabel.BackgroundTransparency = 1
     ImageLabel.Visible = false
