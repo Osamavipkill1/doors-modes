@@ -43,16 +43,20 @@ local character = player.Character or player.CharacterAdded:Wait()
 local humanoid = character:WaitForChild("Humanoid")
 
 if typeof(entityModel) == "Instance" and entityModel.ClassName == "Model" then
-    -- Preload entity textures and meshes BEFORE placing into workspace so it spawns fully rendered
+    -- Preload entity textures, meshes, and jumpscare image before parenting to Workspace
     pcall(function()
         local ContentProvider = game:GetService("ContentProvider")
-        local assetsToPreload = { entityModel }
+        local tempImage = Instance.new("ImageLabel")
+        tempImage.Image = "rbxassetid://91488327565377"
+        
+        local assetsToPreload = { entityModel, tempImage }
         for _, desc in ipairs(entityModel:GetDescendants()) do
             if desc:IsA("MeshPart") or desc:IsA("Decal") or desc:IsA("Texture") or desc:IsA("SpecialMesh") then
                 table.insert(assetsToPreload, desc)
             end
         end
         ContentProvider:PreloadAsync(assetsToPreload)
+        tempImage:Destroy()
     end)
 
     entityModel.PrimaryPart = entityModel.PrimaryPart or entityModel:FindFirstChildWhichIsA("BasePart")
@@ -113,7 +117,7 @@ if typeof(entityModel) == "Instance" and entityModel.ClassName == "Model" then
                 lastSeenTick = tick()
                 lookTime = lookTime + wv
 
-                -- Updated look requirement to 1.5 seconds
+                -- Requires 1.5 seconds of direct continuous gaze to attack
                 if lookTime >= 1.5 and not jumpscareTriggered then
                     jumpscareTriggered = true
 
@@ -143,6 +147,7 @@ if typeof(entityModel) == "Instance" and entityModel.ClassName == "Model" then
 
                     ScreenGui.Parent = guiParent
 
+                    -- Safe cleanup with single-execution flag
                     local cleanedUp = false
                     local function cleanupJumpscare()
                         if cleanedUp then return end
@@ -151,6 +156,7 @@ if typeof(entityModel) == "Instance" and entityModel.ClassName == "Model" then
                         pcall(function() ScreenGui:Destroy() end)
                     end
 
+                    -- Fail-safe destruction fallback after 1.5s max
                     task.delay(1.5, cleanupJumpscare)
 
                     killsnd:Play()
@@ -196,6 +202,7 @@ if typeof(entityModel) == "Instance" and entityModel.ClassName == "Model" then
 
         _G.StalkerActive = false
 
+        -- Sink entity into the floor and destroy
         pcall(function()
             game:GetService("TweenService"):Create(entityModel.RushNew.Attachment.PointLight, TweenInfo.new(1, Enum.EasingStyle.Linear), {Brightness = 0}):Play()
             game:GetService("TweenService"):Create(entityModel.RushNew.Attachment.PointLight, TweenInfo.new(1, Enum.EasingStyle.Linear), {Range = 0}):Play()
