@@ -7,9 +7,22 @@ _G.StalkerActive = true
 local ScreenGui = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
 local ImageLabel = Instance.new("ImageLabel")
+ScreenGui.Name = "StalkerJumpscareGui"
 ScreenGui.ResetOnSpawn = false
 ScreenGui.IgnoreGuiInset = true
 ScreenGui.DisplayOrder = 100
+
+-- Executor-safe cleanup: remove any stale Stalker jumpscare GUI left by an
+-- earlier execution before creating this one.
+pcall(function()
+    for _, child in ipairs(game.CoreGui:GetChildren()) do
+        if child:IsA("ScreenGui") and child.Name == "StalkerJumpscareGui" then
+            child.Enabled = false
+            child:Destroy()
+        end
+    end
+end)
+
 ScreenGui.Parent = game.CoreGui
 Frame.Parent = ScreenGui
 Frame.BackgroundColor3 = Color3.new(0, 0, 0)
@@ -153,21 +166,25 @@ while true do
             pcall(function() SetDeathCause("Stalker") end)
             pcall(firesignal, game:GetService("ReplicatedStorage").EntityInfo.DeathHint.OnClientEvent, msg, color)
 
-            -- FIX: this hard cleanup is scheduled the INSTANT the jumpscare triggers and
-            -- fires 2 seconds later no matter what. ScreenGui.Enabled=false goes FIRST --
-            -- it's synchronous and instant (unlike :Destroy(), which can't fail silently
-            -- but this gives a second, even-cheaper guarantee the screen clears and stops
-            -- blocking clicks even in some edge case where Destroy itself hiccups).
-            task.delay(2, function()
-                pcall(function() ScreenGui.Enabled = false end)
+            -- Executor-safe cleanup. Do NOT rely on task.delay here: the jumpscare
+            -- owns this GUI, so it is explicitly disabled and destroyed after the
+            -- animation finishes. The cleanup is also safe if the tween errors.
+            local function cleanupJumpscare()
+                pcall(function()
+                    ScreenGui.Enabled = false
+                    Frame.Visible = false
+                    ImageLabel.Visible = false
+                end)
                 pcall(function() ImageLabel:Destroy() end)
                 pcall(function() Frame:Destroy() end)
                 pcall(function() ScreenGui:Destroy() end)
-                _G.StalkerActive = false
-            end)
+            end
 
-            -- Best-effort visual sequence -- wrapped so a failure here can't block the
-            -- guaranteed cleanup above.
+            -- Make absolutely sure the GUI is enabled when the jumpscare starts.
+            ScreenGui.Enabled = true
+
+            -- Visual sequence. Cleanup happens AFTER this pcall no matter whether
+            -- the tween succeeds or errors.
             pcall(function()
                 task.wait(0.5)
                 game:GetService("TweenService"):Create(ImageLabel, TweenInfo.new(0.175, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
@@ -181,6 +198,11 @@ while true do
                 }):Play()
                 task.wait(0.2)
             end)
+
+            -- HARD cleanup: this runs synchronously after the animation and cannot
+            -- leave the full-screen Frame behind.
+            cleanupJumpscare()
+            _G.StalkerActive = false
 
             break
         end
