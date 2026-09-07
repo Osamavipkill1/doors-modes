@@ -13,6 +13,9 @@ end
 function mbush()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/pastebin2"))()
 end
+function envy()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Entities/Envy.lua"))()
+end
 function meyes()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Entities/Manic%20Eyes.lua"))()
 end
@@ -227,6 +230,10 @@ end
 				if msg == '/ambush' then
 					CommandNotify("Spawning Mimic Ambush")
 					coroutine.wrap(mbush)()
+				end
+				if msg == '/envy' then
+					CommandNotify("Spawning envy")
+					coroutine.wrap(envy)()
 				end
 				if msg == '/eyes' then
 					CommandNotify("Spawning Mimic Eyes")
