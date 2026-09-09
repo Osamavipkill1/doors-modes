@@ -55,7 +55,6 @@ local function WaitForSoundEnd(sound, timeoutSeconds)
 end
 -- ebic
 -- commands
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Commands.lua"))()
 
 _G.Blackout = "safe" 
 _G.Threat = "safe" 
@@ -214,7 +213,7 @@ if gameId == 6839171747 then
 
     _G.AntiLog = true
 
-Msg("Mayhem Mode - v2.13.1", 1)
+Msg("Mayhem Mode - v2.13.2", 1)
 task.wait(2)
 Msg("Made by ThatOneAmethystCreature#0001, Ame", 1)
 _G.AntiLog = true
