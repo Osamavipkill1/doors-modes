@@ -55,6 +55,7 @@ local function WaitForSoundEnd(sound, timeoutSeconds)
 end
 -- ebic
 -- commands
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/Commands.lua"))()
 
 _G.Blackout = "safe" 
 _G.Threat = "safe" 
