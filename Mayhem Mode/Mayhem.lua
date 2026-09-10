@@ -771,7 +771,7 @@ task.spawn(function()
 end)
 --
 
--- h-10 / a-90 -- intentionally NOT synced, stays personal per player like Stalker/Screech
+--[[ h-10 / a-90 -- intentionally NOT synced, stays personal per player like Stalker/Screech
 task.spawn(function()
     while true do
         task.wait(math.random(40, 90))
@@ -782,7 +782,7 @@ task.spawn(function()
         end
     end
 end)
---
+--]]
 
     
 else
