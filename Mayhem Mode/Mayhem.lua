@@ -253,7 +253,7 @@ if gameId == 6839171747 then
 
     _G.AntiLog = true
 
-Msg("Mayhem Mode - v2.11.2", 1)
+Msg("Mayhem Mode - v2.14.3", 1)
 task.wait(2)
 Msg("Made by ThatOneAmethystCreature#0001", 1)
 _G.AntiLog = true
@@ -718,7 +718,7 @@ game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
 end)
 --
 
--- h-10 / a-90 -- intentionally NOT synced, stays personal per player like Stalker/Screech
+--[[ h-10 / a-90 -- intentionally NOT synced, stays personal per player like Stalker/Screech
 task.spawn(function()
     while true do
         task.wait(math.random(40, 90))
@@ -729,7 +729,7 @@ task.spawn(function()
         end
     end
 end)
---
+--]]
 
     
 else
