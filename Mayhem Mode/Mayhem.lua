@@ -703,7 +703,7 @@ game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
 end)
 --
 
--- dilarious
+--[[ dilarious
 local DilariousCheckpoints = BuildCheckpoints(10, 5, 1, 101)
 game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
     local latestRoom = game.ReplicatedStorage.GameData.LatestRoom.Value
@@ -716,7 +716,7 @@ game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
         end
     end
 end)
---
+--]]
 
 --[[ h-10 / a-90 -- intentionally NOT synced, stays personal per player like Stalker/Screech
 task.spawn(function()
