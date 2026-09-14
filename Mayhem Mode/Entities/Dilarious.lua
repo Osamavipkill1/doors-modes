@@ -58,7 +58,7 @@ end
 local RUSH_SPEED = 195
 -- How close counts as "touching" for the proximity kill -- root-part to root-part,
 -- not surface to surface, so this is deliberately larger than it looks.
-local KILL_RANGE = 5
+local KILL_RANGE = 7
 local RunService = game:GetService("RunService")
 
 -- Shortest signed distance from one angle to another in degrees, wrapping correctly
@@ -129,11 +129,16 @@ entityTable.Debug.OnEntitySpawned = function()
         local function doKill()
             if alreadyKilled then return end
             alreadyKilled = true
+            print("[Mayhem/Dilarious] doKill triggered.")
             pcall(function() SetDeathCause("Dilarious") end)
             local hintOk, hintErr = pcall(firesignal, game:GetService("ReplicatedStorage").EntityInfo.DeathHint.OnClientEvent, entityTable.Config.CustomDialog, entityTable.Config.Color)
             if not hintOk then
                 warn("[Mayhem/Dilarious] DeathHint firesignal failed: " .. tostring(hintErr))
             end
+            -- Direct write first -- this is the exact technique you just
+            -- confirmed reliably kills in this game. GuaranteeKill runs right
+            -- after purely as reinforcement, not the primary mechanism anymore.
+            humanoid.Health = 0
             pcall(function() GuaranteeKill(humanoid) end)
         end
 
@@ -149,6 +154,9 @@ entityTable.Debug.OnEntitySpawned = function()
             Hitbox.Parent = workspace
             Hitbox.CanCollide = false
             Hitbox.CanQuery = false
+            Hitbox.CanTouch = true -- forced explicitly: if the asset shipped with
+                                    -- this false, Touched would never fire no
+                                    -- matter what else is right
             Hitbox.Transparency = 1
             hitboxSyncConn = RunService.Heartbeat:Connect(function()
                 if not isAlive() or not dilarious.PrimaryPart then
@@ -164,6 +172,7 @@ entityTable.Debug.OnEntitySpawned = function()
                 local hitChar = hit and hit.Parent
                 local hitHum = hitChar and hitChar:FindFirstChild("Humanoid")
                 if hitHum == humanoid then
+                    print("[Mayhem/Dilarious] Hitbox Touched fired.")
                     doKill()
                 end
             end)
@@ -184,6 +193,7 @@ entityTable.Debug.OnEntitySpawned = function()
 
             local dist = (hrp.Position - dilarious.PrimaryPart.Position).Magnitude
             if dist <= KILL_RANGE then
+                print("[Mayhem/Dilarious] Proximity check triggered at distance " .. tostring(dist))
                 doKill()
             end
         end)
