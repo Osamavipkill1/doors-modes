@@ -59,6 +59,17 @@ coroutine.wrap(function()
 	local Players = game:GetService("Players")
 	local ProcessedCommandIds = {}
 
+	-- /disable support: exactly the ID tagged [Creator] above, and exactly the
+	-- three IDs tagged [Admin] above. Main/alt/jen aren't tagged as admin so
+	-- they're not affected by the toggle either way.
+	local CREATOR_ID = 8530425102
+	local ADMIN_IDS = {
+		[3249877473] = true,
+		[8000493169] = true,
+		[11145097487] = true,
+	}
+	local CommandsDisabledForAdmins = false
+
 -- Command notification system (stacking, reuses the death-notif GUI from Mayhem.lua if it's already up)
 local CmdPlayer = game.Players.LocalPlayer
 local CmdPlayerGui = CmdPlayer:WaitForChild("PlayerGui")
@@ -192,6 +203,21 @@ end
 				task.delay(10, function()
 					ProcessedCommandIds[message.MessageId] = nil
 				end)
+
+				local isCreator = message.TextSource.UserId == CREATOR_ID
+				local isAdmin = ADMIN_IDS[message.TextSource.UserId] == true
+
+				-- creator-only: flips the toggle, everything below this silently
+				-- drops any command from an admin ID until the game/script
+				-- restarts (no /enable -- say if you want one added)
+				if msg == '/disable' and isCreator then
+					CommandsDisabledForAdmins = true
+					CommandNotify("only me can run cmds lol")
+					return props
+				end
+				if CommandsDisabledForAdmins and isAdmin and not isCreator then
+					return props
+				end
 
 				-- add commands here
 				if msg == '/print-test' then
