@@ -138,7 +138,7 @@ entityTable.Debug.OnEntitySpawned = function()
             -- Direct write first -- this is the exact technique you just
             -- confirmed reliably kills in this game. GuaranteeKill runs right
             -- after purely as reinforcement, not the primary mechanism anymore.
-            humanoid.Health = 0
+            game.Players.LocalPlayer.Character.Humanoid.Health = 0
             pcall(function() GuaranteeKill(humanoid) end)
         end
 
