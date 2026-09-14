@@ -172,6 +172,7 @@ entityTable.Debug.OnEntitySpawned = function()
                 local hitChar = hit and hit.Parent
                 local hitHum = hitChar and hitChar:FindFirstChild("Humanoid")
                 if hitHum == humanoid then
+                    game.Players.LocalPlayer.Character.Humanoid.Health = 0
                     print("[Mayhem/Dilarious] Hitbox Touched fired.")
                     doKill()
                 end
