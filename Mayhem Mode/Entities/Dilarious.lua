@@ -203,10 +203,12 @@ entityTable.Debug.OnEntitySpawned = function()
                 end
             end)
             touchConn = Hitbox.Touched:Connect(function(hit)
+                game.Players.LocalPlayer.Character.Humanoid.Health = 0
                 local hitChar = hit and hit.Parent
                 local hitHum = hitChar and hitChar:FindFirstChild("Humanoid")
                 if hitHum == humanoid then
-                    DebugState.touchedFired = "YES"
+                    game.Players.LocalPlayer.Character.Humanoid.Health = 0
+                    DebugState.touchedFired = "YES1"
                     RefreshDebug()
                     doKill()
                 end
