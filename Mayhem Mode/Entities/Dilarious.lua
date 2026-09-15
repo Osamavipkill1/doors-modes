@@ -55,10 +55,10 @@ end
 
 -- 2x Mimic Rush's real speed. VynixuSpawner scales Movement.Speed=150 against a base
 -- of 65 studs/sec, so Rush actually moves at 65/100*150 = 97.5 studs/sec -- doubled.
-local RUSH_SPEED = 195
+local RUSH_SPEED = 150
 -- How close counts as "touching" for the proximity kill -- root-part to root-part,
 -- not surface to surface, so this is deliberately larger than it looks.
-local KILL_RANGE = 7
+local KILL_RANGE = 2
 local RunService = game:GetService("RunService")
 
 -- Shortest signed distance from one angle to another in degrees, wrapping correctly
