@@ -146,7 +146,7 @@ entityTable.Debug.OnEntitySpawned = function()
             Hitbox.Parent = workspace
             Hitbox.CanCollide = false
             Hitbox.CanQuery = false
-            Hitbox.CanTouch = true -- forced explicitly: if the asset shipped with
+            Hitbox.CanTouch = false -- forced explicitly: if the asset shipped with
                                     -- this false, Touched would never fire no
                                     -- matter what else is right
             Hitbox.Transparency = 1
