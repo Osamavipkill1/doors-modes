@@ -3,10 +3,10 @@ local Spawner = LoadCachedModule("https://raw.githubusercontent.com/Osamavipkill
 local entityTable = Spawner.createEntity({
     CustomName = "Dilarious",
     Model = "rbxassetid://12913584112",
-    Speed = 20, -- patrol speed, unchanged from the old version (~12 studs/sec)
+    Speed = 20,
     DelayTime = 2,
     HeightOffset = 0,
-    CanKill = false, -- touch/proximity kill is handled below, not the Spawner's own kill
+    CanKill = false, -- kill is handled in this script
     KillRange = 0,
     BackwardsMovement = false,
     BreakLights = false,
@@ -40,19 +40,13 @@ local entityTable = Spawner.createEntity({
     Color = "Yellow",
 })
 
-if not entityTable then
-    warn("[Mayhem/Dilarious] Failed to create -- check the Asset id is still valid.")
-    return
-end
+if not entityTable then return end
 
 local RUSH_SPEED = 60
--- How close counts as "touching" for the proximity kill -- root-part to root-part,
--- not surface to surface, so this is deliberately larger than it looks.
-local KILL_RANGE = 20
+local KILL_RANGE = 4 -- studs, root part to root part
 local RunService = game:GetService("RunService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
--- Shortest signed distance from one angle to another in degrees, wrapping correctly
--- at +/-180 so a nudge never sends the camera spinning the long way around.
 local function ShortestAngleDiff(from, to)
     local diff = (to - from) % 360
     if diff > 180 then
@@ -61,19 +55,15 @@ local function ShortestAngleDiff(from, to)
     return diff
 end
 
------[[  Debug -=- Advanced  ]]-----
 entityTable.Debug.OnEntitySpawned = function()
     task.spawn(function()
         local dilarious = game.Workspace:WaitForChild("Dilarious", 5)
-        if not dilarious then
-            warn("[Mayhem/Dilarious] Model never appeared in workspace, aborting.")
-            return
-        end
+        if not dilarious then return end
 
-        -- Noclip: strip collision from every part so the player can walk straight
-        -- through it. It stays fully visible -- this only affects physical
-        -- blocking, not rendering, and not the raycast/FOV checks below (CanQuery
-        -- is a separate property from CanCollide).
+        -- kills are distance-based, the model's hitbox isn't used
+        local hitbox = dilarious:FindFirstChild("Hitbox")
+        if hitbox then hitbox:Destroy() end
+
         for _, part in ipairs(dilarious:GetDescendants()) do
             if part:IsA("BasePart") then
                 part.CanCollide = false
@@ -85,9 +75,6 @@ entityTable.Debug.OnEntitySpawned = function()
         local humanoid = character:WaitForChild("Humanoid")
         local camera = workspace.CurrentCamera
 
-        -- Same fallback the old version used: a dedicated anchor part if the model
-        -- has one, otherwise PrimaryPart. Used for the camera-pull target, the
-        -- raycast target, and the point the rush chases toward.
         local function getAnchor()
             return dilarious:FindFirstChild("DilariousMov") or dilarious.PrimaryPart
         end
@@ -96,79 +83,34 @@ entityTable.Debug.OnEntitySpawned = function()
             return dilarious.Parent ~= nil and humanoid.Health > 0
         end
 
-        -- Doors runs its camera fully scripted: Main_Game keeps target yaw/pitch
-        -- (ax_t/ay_t) and recomputes Camera.CFrame from them every frame, the same
-        -- system Screech's own camera-lock nudges. If that module isn't reachable
-        -- for some reason, fall back to nudging Camera.CFrame directly -- weaker,
-        -- but better than nothing.
+        -- Main_Game's ax_t/ay_t are Doors' camera yaw/pitch targets; if they
+        -- aren't reachable, the pull falls back to moving Camera.CFrame directly
         local mainGameOk, mainGame = pcall(function()
             return require(player.PlayerGui.MainUI.Initiator.Main_Game)
         end)
         local useNativeCameraAngles = mainGameOk and mainGame
             and typeof(mainGame.ax_t) == "number"
             and typeof(mainGame.ay_t) == "number"
-        if not useNativeCameraAngles then
-            warn("[Mayhem/Dilarious] Main_Game angle targets not found -- falling back to a direct camera nudge.")
-        end
 
-        -- Kill: proximity is the real trigger (matches how Threat's own kill
-        -- condition works -- a distance check, not a physical collision), Touched
-        -- is kept as a bonus path in case it does fire. Both are guarded by the
-        -- same alreadyKilled flag so this can't double-fire.
         local alreadyKilled = false
         local function doKill()
             if alreadyKilled then return end
             alreadyKilled = true
-            print("[Mayhem/Dilarious] doKill triggered.")
-            pcall(function() SetDeathCause("Dilarious") end)
-            local hintOk, hintErr = pcall(firesignal, game:GetService("ReplicatedStorage").EntityInfo.DeathHint.OnClientEvent, entityTable.Config.CustomDialog, entityTable.Config.Color)
-            if not hintOk then
-                warn("[Mayhem/Dilarious] DeathHint firesignal failed: " .. tostring(hintErr))
-            end
-            -- Direct write first -- this is the exact technique you just
-            -- confirmed reliably kills in this game. GuaranteeKill runs right
-            -- after purely as reinforcement, not the primary mechanism anymore.
-            game.Players.LocalPlayer.Character.Humanoid.Health = 0
-            pcall(function() GuaranteeKill(humanoid) end)
-        end
 
-        -- Hitbox is pulled out to workspace directly and kept in sync by hand,
-        -- instead of just leaving it as a child of the model and trusting PivotTo
-        -- to carry it along -- an earlier version of this entity did exactly that
-        -- reparenting, which strongly suggests leaving it nested wasn't reliable
-        -- enough for Touched to actually register.
-        local Hitbox = dilarious:FindFirstChild("Hitbox")
-        local touchConn
-        local hitboxSyncConn
-        if Hitbox then
-            Hitbox.Parent = workspace
-            Hitbox.CanCollide = false
-            Hitbox.CanQuery = false
-            Hitbox.CanTouch = false -- forced explicitly: if the asset shipped with
-                                    -- this false, Touched would never fire no
-                                    -- matter what else is right
-            Hitbox.Transparency = 1
-            hitboxSyncConn = RunService.Heartbeat:Connect(function()
-                if not isAlive() or not dilarious.PrimaryPart then
-                    if hitboxSyncConn then hitboxSyncConn:Disconnect() end
-                    return
-                end
-                local anchor = getAnchor()
-                if anchor then
-                    Hitbox.Position = anchor.Position
+            humanoid.Health = 0
+            pcall(function() GuaranteeKill(humanoid) end)
+            pcall(function() SetDeathCause("Dilarious") end)
+
+            pcall(function()
+                for _, folder in ipairs({"RemotesFolder", "EntityInfo", "Bricks"}) do
+                    local remote = ReplicatedStorage:FindFirstChild(folder)
+                        and ReplicatedStorage[folder]:FindFirstChild("DeathHint")
+                    if remote then
+                        firesignal(remote.OnClientEvent, entityTable.Config.CustomDialog, entityTable.Config.Color)
+                        break
+                    end
                 end
             end)
-            touchConn = Hitbox.Touched:Connect(function(hit)
-                local hitChar = hit and hit.Parent
-                local hitHum = hitChar and hitChar:FindFirstChild("Humanoid")
-                if hitHum == humanoid then
-                    game.Players.LocalPlayer.Character.Humanoid.Health = 0
-                    print("[Mayhem/Dilarious] Hitbox Touched fired.")
-                    doKill()
-                end
-            end)
-        else
-            warn("[Mayhem/Dilarious] No 'Hitbox' child on the model -- relying on proximity only for this spawn.")
         end
 
         local proximityConn
@@ -180,20 +122,14 @@ entityTable.Debug.OnEntitySpawned = function()
             local liveChar = player.Character
             local hrp = liveChar and liveChar:FindFirstChild("HumanoidRootPart")
             if not hrp or not dilarious.PrimaryPart then return end
-            if liveChar:GetAttribute("Hiding") then return end -- matches Threat's own IgnoreHiding=false behavior
 
-            local dist = (hrp.Position - dilarious.PrimaryPart.Position).Magnitude
-            if dist <= KILL_RANGE then
-                print("[Mayhem/Dilarious] Proximity check triggered at distance " .. tostring(dist))
+            if (hrp.Position - dilarious.PrimaryPart.Position).Magnitude <= KILL_RANGE then
                 doKill()
             end
         end)
 
-        -- Camera pull. Nudges Main_Game's target angles a little further toward
-        -- looking at Dilarious every frame -- additive, not a hard set, so the
-        -- player's own mouse movement (which drives those same targets) can win
-        -- out over it by actively turning away. Strength scales with distance:
-        -- barely noticeable far away, hard to resist up close.
+        -- Nudges the camera toward Dilarious; stronger the closer it is, and
+        -- the player's own mouse movement can still win out
         local pullConn
         pullConn = RunService.RenderStepped:Connect(function(dt)
             if not isAlive() then
@@ -209,10 +145,6 @@ entityTable.Debug.OnEntitySpawned = function()
             local dist = toTarget.Magnitude
             if dist < 1 then return end
 
-            -- Extended range: full strength at/under 8 studs, but now reaches out
-            -- to 200 studs instead of 80 -- a quadratic (not linear) falloff so it
-            -- stays genuinely weak/barely-there across most of that range and only
-            -- really ramps up once you're within roughly the last 40-50 studs.
             local minDist, maxDist = 8, 200
             local normalizedDist = math.clamp((dist - minDist) / (maxDist - minDist), 0, 1)
             local proximity = (1 - normalizedDist) ^ 2
@@ -234,11 +166,8 @@ entityTable.Debug.OnEntitySpawned = function()
             end
         end)
 
-        -- Rush control. Flips the Spawner's own NoAI attribute, which its patrol
-        -- movement (dragEntity, in Source.lua) already checks and pauses on -- so
-        -- starting a rush cleanly freezes the patrol in place, and ending one hands
-        -- control straight back to the Spawner, which resumes toward the same node
-        -- it was already walking to.
+        -- NoAI pauses the Spawner's patrol while the rush runs, and hands it
+        -- back when the rush stops
         local rushing = false
         local rushConn = nil
 
@@ -265,10 +194,6 @@ entityTable.Debug.OnEntitySpawned = function()
                 local hrp = liveChar and liveChar:FindFirstChild("HumanoidRootPart")
                 if not hrp or not dilarious.PrimaryPart then return end
 
-                -- PrimaryPart, not getAnchor(), is the ground truth for where the
-                -- model actually is -- matches the convention Source.lua's own
-                -- dragEntity uses, so this can't drift relative to a
-                -- possibly-offset DilariousMov anchor.
                 local rootPos = dilarious.PrimaryPart.Position
                 local diff = hrp.Position - rootPos
                 if diff.Magnitude > 1 then
@@ -280,11 +205,9 @@ entityTable.Debug.OnEntitySpawned = function()
             end)
         end
 
-        -- Look detection: on-screen AND a clear raycast, exactly like Manic Eyes.
-        -- Checked ~10x/sec instead of every frame -- responsive enough without
-        -- throwing out a raycast every single frame.
+        -- Looking at it = on screen with a clear raycast, checked 10x/sec
         local rayParams = RaycastParams.new()
-        rayParams.FilterDescendantsInstances = Hitbox and {character, dilarious, Hitbox} or {character, dilarious}
+        rayParams.FilterDescendantsInstances = {character, dilarious}
         rayParams.FilterType = Enum.RaycastFilterType.Exclude
 
         task.spawn(function()
@@ -317,14 +240,11 @@ entityTable.Debug.OnEntitySpawned = function()
             stopRush()
         end)
 
-        -- Safety despawn: same room-49 checkpoint the old version used, so this
-        -- can't linger into the room 50 sequence even if its cycles haven't
-        -- finished by then.
+        -- despawn at room 49 so it can't carry into the room 50 sequence
         task.spawn(function()
             while isAlive() do
-                game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
-                local latestRoom = game.ReplicatedStorage.GameData.LatestRoom.Value
-                if latestRoom >= 49 then
+                ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+                if ReplicatedStorage.GameData.LatestRoom.Value >= 49 then
                     pcall(function() dilarious:Destroy() end)
                     break
                 end
@@ -332,22 +252,11 @@ entityTable.Debug.OnEntitySpawned = function()
         end)
 
         entityTable.Debug.OnEntityDespawned = function()
-            if touchConn then touchConn:Disconnect() end
-            if hitboxSyncConn then hitboxSyncConn:Disconnect() end
-            if Hitbox then pcall(function() Hitbox:Destroy() end) end
             if proximityConn then proximityConn:Disconnect() end
             if pullConn then pullConn:Disconnect() end
             stopRush()
         end
     end)
 end
-
-entityTable.Debug.OnEntityDespawned = function() end
-entityTable.Debug.OnEntityStartMoving = function() end
-entityTable.Debug.OnEntityFinishedRebound = function() end
-entityTable.Debug.OnEntityEnteredRoom = function(room) end
-entityTable.Debug.OnLookAtEntity = function() end
-entityTable.Debug.OnDeath = function() end
-------------------------------------
 
 Spawner.runEntity(entityTable)
