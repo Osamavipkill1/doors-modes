@@ -167,21 +167,27 @@ entityTable.Debug.OnEntitySpawned = function()
         local function doKill()
             if alreadyKilled then return end
             alreadyKilled = true
+
             local kHrp, kPp = character:FindFirstChild("HumanoidRootPart"), dilarious.PrimaryPart
             if kHrp and kPp then
                 dbg(string.format("KILLED @ %.1f studs", (kHrp.Position - kPp.Position).Magnitude), Color3.fromRGB(255, 80, 80), 6)
             end
-            print("[Mayhem/Dilarious] doKill triggered.")
-            pcall(function() SetDeathCause("Dilarious") end)
-            local hintOk, hintErr = pcall(firesignal, game:GetService("ReplicatedStorage").EntityInfo.DeathHint.OnClientEvent, entityTable.Config.CustomDialog, entityTable.Config.Color)
-            if not hintOk then
-                warn("[Mayhem/Dilarious] DeathHint firesignal failed: " .. tostring(hintErr))
-            end
-            -- Direct write first -- this is the exact technique you just
-            -- confirmed reliably kills in this game. GuaranteeKill runs right
-            -- after purely as reinforcement, not the primary mechanism anymore.
-            game.Players.LocalPlayer.Character.Humanoid.Health = 0
+
+            -- kill first, cosmetics after, so a bad path can't stop it
+            humanoid.Health = 0
             pcall(function() GuaranteeKill(humanoid) end)
+            pcall(function() SetDeathCause("Dilarious") end)
+
+            local rs = game:GetService("ReplicatedStorage")
+            local ok, err = pcall(function()
+                local remote = (rs:FindFirstChild("RemotesFolder") and rs.RemotesFolder:FindFirstChild("DeathHint"))
+                    or (rs:FindFirstChild("EntityInfo") and rs.EntityInfo:FindFirstChild("DeathHint"))
+                    or (rs:FindFirstChild("Bricks") and rs.Bricks:FindFirstChild("DeathHint"))
+                firesignal(remote.OnClientEvent, entityTable.Config.CustomDialog, entityTable.Config.Color)
+            end)
+            if not ok then
+                dbg("DeathHint failed: " .. tostring(err), Color3.fromRGB(255, 200, 60), 6)
+            end
         end
 
         -- Hitbox is pulled out to workspace directly and kept in sync by hand,
