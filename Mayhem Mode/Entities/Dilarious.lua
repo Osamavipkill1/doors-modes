@@ -48,7 +48,7 @@ end
 local RUSH_SPEED = 60
 -- How close counts as "touching" for the proximity kill -- root-part to root-part,
 -- not surface to surface, so this is deliberately larger than it looks.
-local KILL_RANGE = 4
+local KILL_RANGE = 20
 local RunService = game:GetService("RunService")
 
 -- Shortest signed distance from one angle to another in degrees, wrapping correctly
