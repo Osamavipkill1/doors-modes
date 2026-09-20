@@ -289,7 +289,7 @@ entityTable.Debug.OnEntitySpawned = function()
         rayParams.FilterDescendantsInstances = Hitbox and {character, dilarious, Hitbox} or {character, dilarious}
         rayParams.FilterType = Enum.RaycastFilterType.Exclude
 
-        task.spawn(function()
+        --[[ task.spawn(function()
             local wasLooking = false
             while isAlive() do
                 task.wait(0.1)
@@ -317,7 +317,7 @@ entityTable.Debug.OnEntitySpawned = function()
                 end
             end
             stopRush()
-        end)
+        end) --]]
 
         -- Safety despawn: same room-49 checkpoint the old version used, so this
         -- can't linger into the room 50 sequence even if its cycles haven't
