@@ -231,7 +231,7 @@ entityTable.Debug.OnEntitySpawned = function()
                     if not hit:IsDescendantOf(character) then return end
                     local tHrp, tPp = character:FindFirstChild("HumanoidRootPart"), dilarious.PrimaryPart
                     if tHrp and tPp then
-                        dbg(string.format("TOUCHED @ %.1f studs", (tHrp.Position - tPp.Position).Magnitude), Color3.fromRGB(80, 255, 120), 4)
+                        dbg(string.format("TOUCHED @ %.1f studs and killed", (tHrp.Position - tPp.Position).Magnitude), Color3.fromRGB(80, 255, 120), 4)
                         doKill()
                     end
                 end)
