@@ -36,13 +36,13 @@ local entityTable = Spawner.createEntity({
             Tease = { true, Min = 1, Max = 3 },
         },
     },
-    CustomDialog = {"Oh... hello.", "Not this place again...", "Nevermind that... What'd you die to?", "Oh... the one that hates eye contact.", "It won't chase you if you don't look at it, so...", "Maybe you could call it Dilarious?", "Anyways, I hope you don't mind trying again. It would be helpful."},
+    CustomDialog = {"Oh... hello.", "Not this place again...", "Nevermind that... What'd you die to?", "Oh... the one that hates but wants eye contact.", "It won't chase you if you don't look at it", "and it will beg for your attention, so...", "maybe try resisting better next time", "Anyways, I hope you don't mind trying again. It would be helpful."},
     Color = "Yellow",
 })
 
 if not entityTable then return end
 
-local RUSH_SPEED = 60
+local RUSH_SPEED = 70
 local KILL_RANGE = 4 -- studs, root part to root part
 local RunService = game:GetService("RunService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
