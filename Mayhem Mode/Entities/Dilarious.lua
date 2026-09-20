@@ -1,11 +1,3 @@
--- Dilarious, rebuilt (v2). Old version: wandered its path, physically dragged the
--- player toward it, ground them down with repeated small touch damage. Rebuilt
--- version: no collision (you can walk straight through it, but it's fully
--- visible), a proximity-based instant kill (like Threat's own kill condition --
--- Touched is unreliable for anything moved via PivotTo, so distance is the real
--- trigger, Touched is just a bonus path), and a camera pull that goes through
--- Doors' own camera-angle system instead of writing Camera.CFrame directly (which
--- gets silently overwritten every frame by Doors' own camera script).
 local Spawner = LoadCachedModule("https://raw.githubusercontent.com/Osamavipkill1/doors-modes/refs/heads/main/Mayhem%20Mode/misc/EntitySpawnerFork/Source.lua")
 
 local entityTable = Spawner.createEntity({
@@ -55,10 +47,10 @@ end
 
 -- 2x Mimic Rush's real speed. VynixuSpawner scales Movement.Speed=150 against a base
 -- of 65 studs/sec, so Rush actually moves at 65/100*150 = 97.5 studs/sec -- doubled.
-local RUSH_SPEED = 150
+local RUSH_SPEED = 100
 -- How close counts as "touching" for the proximity kill -- root-part to root-part,
 -- not surface to surface, so this is deliberately larger than it looks.
-local KILL_RANGE = 2
+local KILL_RANGE = 1
 local RunService = game:GetService("RunService")
 
 -- Shortest signed distance from one angle to another in degrees, wrapping correctly
