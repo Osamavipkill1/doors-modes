@@ -48,7 +48,7 @@ end
 local RUSH_SPEED = 60
 -- How close counts as "touching" for the proximity kill -- root-part to root-part,
 -- not surface to surface, so this is deliberately larger than it looks.
-local KILL_RANGE = 20
+local KILL_RANGE = 2
 local RunService = game:GetService("RunService")
 
 -----[[  DEBUG GUI -- delete this block + every dbg(...) line when you're done tuning  ]]-----
@@ -232,6 +232,7 @@ entityTable.Debug.OnEntitySpawned = function()
                     local tHrp, tPp = character:FindFirstChild("HumanoidRootPart"), dilarious.PrimaryPart
                     if tHrp and tPp then
                         dbg(string.format("TOUCHED @ %.1f studs", (tHrp.Position - tPp.Position).Magnitude), Color3.fromRGB(80, 255, 120), 4)
+                        doKill()
                     end
                 end)
             end
